@@ -2,12 +2,12 @@ import './App.css'
 import { ParallaxProvider } from "react-scroll-parallax";
 import ToutContent from "./components/ToutContent";
 import NavBar from "./Header/NavBar";
-import CardCollection from "./components/CardCollection";
-import ToutOverlap from "./components/ToutOverlap";
-import BigTextLittleText from "./components/BigTextLittleText";
-import VerticalLine from "./components/VerticalLine";
-import CardSlider from "./components/CardSlider";
-import Pullout from "./components/Pullout";
+// import CardCollection from "./components/CardCollection";
+// import ToutOverlap from "./components/ToutOverlap";
+// import BigTextLittleText from "./components/BigTextLittleText";
+// import VerticalLine from "./components/VerticalLine";
+// import CardSlider from "./components/CardSlider";
+// import Pullout from "./components/Pullout";
 
 const App = ()=> {
   return (
@@ -16,7 +16,7 @@ const App = ()=> {
         <NavBar />
         <div className="w-screen h-screen page-hero" />
         <ToutContent textDirection="toutContent w-full my-0 mb-4 mx-auto py-20 sm:py-0  flex flex-col-reverse sm:flex-row text-left sm:text-right" />
-        <ToutContent textDirection="toutContent w-full my-0 mb-4 mx-auto py-20 sm:py-0  text-left flex flex-col-reverse sm:flex-row-reverse" />
+        {/* <ToutContent textDirection="toutContent w-full my-0 mb-4 mx-auto py-20 sm:py-0  text-left flex flex-col-reverse sm:flex-row-reverse" />
         <div className="bg-green w-full">
           <ToutContent textDirection="toutContent w-full my-0 mx-auto py-20 sm:py-0 flex flex-col-reverse sm:flex-row text-left sm:text-right bg-green" />
         </div>
@@ -39,7 +39,7 @@ const App = ()=> {
           <CardCollection />
         </div>
         <CardSlider />
-        <Pullout pulloutBackground="bg-green" />
+        <Pullout pulloutBackground="bg-green" /> */}
       </div>
     </ParallaxProvider>
   );
