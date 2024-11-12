@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { ParallaxProvider } from "react-scroll-parallax";
+import ToutContent from "./components/ToutContent";
+import NavBar from "./Header/NavBar";
+import CardCollection from "./components/CardCollection";
+import ToutOverlap from "./components/ToutOverlap";
+import BigTextLittleText from "./components/BigTextLittleText";
+import VerticalLine from "./components/VerticalLine";
+import CardSlider from "./components/CardSlider";
+import Pullout from "./components/Pullout";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = ()=> {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <ParallaxProvider>
+      <div className="App">
+        <NavBar />
+        <div className="w-screen h-screen page-hero" />
+        <ToutContent textDirection="toutContent w-full my-0 mb-4 mx-auto py-20 sm:py-0  flex flex-col-reverse sm:flex-row text-left sm:text-right" />
+        <ToutContent textDirection="toutContent w-full my-0 mb-4 mx-auto py-20 sm:py-0  text-left flex flex-col-reverse sm:flex-row-reverse" />
+        <div className="bg-green w-full">
+          <ToutContent textDirection="toutContent w-full my-0 mx-auto py-20 sm:py-0 flex flex-col-reverse sm:flex-row text-left sm:text-right bg-green" />
+        </div>
+        <div className="bg-purple w-full">
+          <ToutContent textDirection="toutContent w-full my-0 mx-auto py-20 sm:py-0 flex flex-col-reverse sm:flex-row-reverse text-left bg-purple" />
+        </div>
+        <div className="w-full toutContent mx-auto">
+          <ToutOverlap
+            toutOverlapContent="tout-overlap mx-auto my-0 bg-left"
+            totuOverlapText="toutCopy--overlap w-full ml-auto sm:w-1/2 bg-green"
+          />
+        </div>
+        <BigTextLittleText />
+        <VerticalLine />
+        <ToutOverlap
+          toutOverlapContent="toutContent tout-overlap mx-auto my-0 bg-right "
+          totuOverlapText="toutCopy--overlap mr-auto w-full sm:w-1/2 bg-orange"
+        />
+        <div className="flex w-full">
+          <CardCollection />
+        </div>
+        <CardSlider />
+        <Pullout pulloutBackground="bg-green" />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </ParallaxProvider>
+  );
 }
 
 export default App
