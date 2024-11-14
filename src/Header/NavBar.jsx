@@ -18,9 +18,9 @@ const NavBar = () => {
 
   return (
     <div className= {`nav-bar ${visible?"":"nav-bar-hidden"}`}>
-      <div className="nav-bar-logo">LOGO</div>
+      <div className="nav-bar-logo ">LOGO</div>
       <ul >
-        <li>Technology</li>
+        <li className="">Technology</li>
         <li>Use Cases</li>
         <li>Company</li>
         <li>Create</li>
