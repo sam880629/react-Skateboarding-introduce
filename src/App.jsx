@@ -4,7 +4,7 @@ import NavBar from "./Header/NavBar";
 import  ImgSroll from "./pages/ImgSroll/ImgSroll"
 import Block1 from './pages/Block1/Block1';
 import Introduce from './pages/Introduce/Introduce';
-import Test from './pages/Introduce/Test';
+import History from './pages/History/History';
 const App = ()=> {
   return (
     <ParallaxProvider>
@@ -13,7 +13,7 @@ const App = ()=> {
         <Block1 />
         <ImgSroll />
         <Introduce />
-        <Test></Test>
+        <History/>
       </div>
     </ParallaxProvider>
   );

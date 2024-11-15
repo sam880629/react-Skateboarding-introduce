@@ -12,9 +12,7 @@
   font-family: gingerRegular;
   src: url(https://s3.eu-west-2.amazonaws.com/mrb-code-handover-area/Sandbox/F37_Ginger_Webfont_Full_Set/f37ginger-regular-webfont.woff);
 }
-html, body {
-  overflow-x: hidden;
-}
+
 .App {
   width: 100%;
   font-size: 18px;
@@ -24,11 +22,14 @@ html, body {
   background-color: #333;
 }
 
+body {
+  overflow-x: hidden;
+}
 
 
 @media only screen and (min-width: 640px) {
   .toutContent {
-    /* max-width: 1600px; */
+    max-width: 1600px;
     margin-bottom: 120px;
   }
 }

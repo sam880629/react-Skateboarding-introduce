@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import './History.css'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,11 +36,11 @@ const sections = [
     time:"2021",
     description:
       "Skateboarding debuted as an official Olympic sport at the 2021 Tokyo Olympics, marking its recognition by the global sports community. The inclusion in the Olympics elevated skateboarding’s legitimacy and professional standing, bringing greater attention to the sport and inspiring a new generation of skaters worldwide.",
-    image: "/assets/images/Olympics.jpg",
+    image: "/assets/images/Olympics2.jpg",
   },
 ];
 
-const ScrollSection = () => {
+const History = () => {
   const containerRef = useRef(null);
   const imageContainerRef = useRef(null);
 
@@ -98,15 +99,15 @@ const ScrollSection = () => {
   return (
     <div ref={containerRef} className="relative">
       {/* 主容器 */}
-      <div className="flex">
+      <div className="flex gap-10">
         {/* 左側文字容器 */}
-        <div className="w-1/2 relative bg-[#333]">
+        <div className="leftText-div relative bg-[#333]">
           {sections.map((section) => (
             <div
               key={section.id}
               className="text-section h-screen flex items-center bg-[#333]"
             >
-              <div className="p-16 max-w-xl">
+              <div className="p-10">
                 <div className="mb-8">
                   <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                     {section.title}
@@ -121,7 +122,7 @@ const ScrollSection = () => {
         </div>
 
         {/* 右側圖片容器 */}
-        <div ref={imageContainerRef} className="w-1/2 h-screen bg-[#333]">
+        <div ref={imageContainerRef} className="w-[55%] h-screen bg-[#333]">
           <div className="relative h-full ">
             {sections.map((section, index) => (
               <div
@@ -133,7 +134,7 @@ const ScrollSection = () => {
                 <img
                   src={section.image}
                   alt={section.title}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-black/30" />
               </div>
@@ -145,4 +146,4 @@ const ScrollSection = () => {
   );
 };
 
-export default ScrollSection;
+export default History;

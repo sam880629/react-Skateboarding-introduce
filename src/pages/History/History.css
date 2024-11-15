@@ -1,0 +1,71 @@
+
+/* 左側圖片ST */
+
+@media only screen and (min-width: 375px) {
+    .leftText-div{
+        width:50%;
+    }
+    .leftText-item{
+        
+        
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .leftText-div{
+        width:70%;
+
+    }
+    .leftText-item{
+      
+       
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .leftText-div{
+        width: 70%;
+
+    }
+    .leftText-item{
+       
+    }
+}
+@media only screen and (min-width: 1440px) {
+    .leftText-div{
+        width: 70%;
+
+    }
+    .leftText-item{
+
+    }
+}
+/* 左側圖片ED */
+
+/* 右側圖片ST */
+
+@media only screen and (min-width: 375px) {
+    .rightImg-div{
+        
+        width: 70%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .rightImg-div{
+        width: 80%;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .rightImg-div{
+        
+        width: 70%;
+    }
+    
+}
+@media only screen and (min-width: 1440px) {
+    .rightImg-div{
+       
+        width: 55%;
+    }
+}
+
