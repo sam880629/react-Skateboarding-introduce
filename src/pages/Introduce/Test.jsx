@@ -11,7 +11,7 @@ const sections = [
     time:"1940s and 1950s",
     description:
       "Skateboarding originated in California in the 1940s and 1950s when surfers wanted to recreate the feeling of surfing on land. They attached wheels to wooden planks, creating the earliest form of skateboards, often referred to as 'sidewalk surfing.' Initially handmade and simple, skateboards soon grew in popularity among Californian youth, and by the 1960s, skateboarding became commercialized and spread as a popular pastime.",
-    image: "../src/assets/images/skateboard.jpg",
+    image: "/assets/images/skateboard.jpg",
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const sections = [
     time:"1978",
     description:
       "Alan Gelfand invented the 'ollie,' the first skateboarding trick where the skateboarder can jump without using their hands. The ollie became the foundation for countless aerial tricks and marked a new era in skateboarding. This revolutionary trick made it possible to perform intricate maneuvers on flat ground and led to the rise of modern skateboarding.",
-    image: "../src/assets/images/Ollie.jpg",
+    image: "/assets/images/Ollie.jpg",
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const sections = [
     time:"1995",
     description:
       "The X Games, organized by ESPN, were first held in 1995 and included skateboarding as one of its core events. This brought skateboarding to a global audience, boosting its popularity significantly. The competition showcased the best skateboarders and their innovative tricks, establishing skateboarding as a professional sport and exposing it to millions of viewers worldwide.",
-    image: "../src/assets/images/Xgames.jpg",
+    image: "/assets/images/Xgames.jpg",
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ const sections = [
     time:"2021",
     description:
       "Skateboarding debuted as an official Olympic sport at the 2021 Tokyo Olympics, marking its recognition by the global sports community. The inclusion in the Olympics elevated skateboarding’s legitimacy and professional standing, bringing greater attention to the sport and inspiring a new generation of skaters worldwide.",
-    image: "../src/assets/images/Olympics.jpg",
+    image: "/assets/images/Olympics.jpg",
   },
 ];
 

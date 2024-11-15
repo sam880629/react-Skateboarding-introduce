@@ -2,7 +2,7 @@ import  { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './ImgSroll.css'
-import Img from "../../assets/images/skateBoard10.jpg"
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -115,8 +115,8 @@ const ImgScroll = () => {
           />
           <img
             className="shadow-lg  mt-10"
-            // src="../src/assets/images/skateBoard5.jpg"
-            src={Img}
+            src="/assets/images/skateBoard5.jpg"
+
             alt="Left bottom skateboard"
           />
         </div>
@@ -129,12 +129,12 @@ const ImgScroll = () => {
         >
           <img
             className="w-full  shadow-lg"
-            src="../src/assets/images/skateBoard8.jpg"
+            src="/assets/images/skateBoard8.jpg"
             alt="Right skateboard"
           />
             <img
             className="w-full  shadow-lg mt-10"
-           src="../src/assets/images/skateBoard12.jpg"
+           src="/assets/images/skateBoard12.jpg"
             alt="Middle top skateboard"
           />
         </div>
@@ -147,7 +147,7 @@ const ImgScroll = () => {
         >
           <img
             className=" shadow-lg"
-           src="../src/assets/images/skateBoard1.jpg"
+           src="/assets/images/skateBoard1.jpg"
             alt="Middle top skateboard"
           />
           
@@ -163,7 +163,7 @@ const ImgScroll = () => {
         >
           <img
             className="w-full  shadow-lg"
-           src="../src/assets/images/skateBoard9.jpg"
+           src="/assets/images/skateBoard9.jpg"
             alt="Middle top skateboard"
           />
           
