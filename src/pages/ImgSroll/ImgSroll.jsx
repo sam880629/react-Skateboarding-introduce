@@ -2,7 +2,7 @@ import  { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './ImgSroll.css'
-
+import Img from "../../assets/images/skateBoard10.jpg"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -115,7 +115,8 @@ const ImgScroll = () => {
           />
           <img
             className="shadow-lg  mt-10"
-            src="../src/assets/images/skateBoard5.jpg"
+            // src="../src/assets/images/skateBoard5.jpg"
+            src={Img}
             alt="Left bottom skateboard"
           />
         </div>
