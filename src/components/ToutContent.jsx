@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react';
 
 const ToutContent = forwardRef(({ className, header, content }, ref) => (
     <div ref={ref} className={className}>
-      <div className="toutCopy w-full sm:w-1/2">
+      <div className="toutCopy w-full ">
         {/* 標題 */}
         <h1 className="toutHeader mt-5 mb-4 sm:mb-1 sm:mt-0">{header}</h1>
         {/* 內容 */}

@@ -26,7 +26,7 @@ const Introduce = () => {
     tl.to(cont1, {
       opacity: 1,
       duration: 1,
-      y:"30",
+      y:"50",
       ease: "power2.out",
     });
 

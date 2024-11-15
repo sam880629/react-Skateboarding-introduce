@@ -2,40 +2,40 @@
 /* 左側圖片ST */
 
 @media only screen and (min-width: 375px) {
-    .leftText-div{
+    .historyText-div{
         width:50%;
     }
-    .leftText-item{
+    .historyText-item{
         
         
     }
 }
 
 @media only screen and (min-width: 768px) {
-    .leftText-div{
-        width:70%;
+    .historyText-div{
+        width:50%;
 
     }
-    .leftText-item{
+    .historyText-item{
       
        
     }
 }
 @media only screen and (min-width: 1024px) {
-    .leftText-div{
-        width: 70%;
+    .historyText-div{
+        width: 50%;
 
     }
-    .leftText-item{
+    .historyText-item{
        
     }
 }
 @media only screen and (min-width: 1440px) {
-    .leftText-div{
-        width: 70%;
+    .historyText-div{
+        width: 50%;
 
     }
-    .leftText-item{
+    .historyText-item{
 
     }
 }
@@ -44,26 +44,26 @@
 /* 右側圖片ST */
 
 @media only screen and (min-width: 375px) {
-    .rightImg-div{
+    .historyImg-div{
         
         width: 70%;
     }
 }
 
 @media only screen and (min-width: 768px) {
-    .rightImg-div{
-        width: 80%;
+    .historyImg-div{
+        width: 45%;
     }
 }
 @media only screen and (min-width: 1024px) {
-    .rightImg-div{
+    .historyImg-div{
         
-        width: 70%;
+        width: 45%;
     }
     
 }
 @media only screen and (min-width: 1440px) {
-    .rightImg-div{
+    .historyImg-div{
        
         width: 55%;
     }
