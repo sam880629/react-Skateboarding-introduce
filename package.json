@@ -18,9 +18,7 @@
     "react-dom": "^18.2.0",
     "react-is-visible": "^1.2.0",
     "react-on-visible": "^1.6.0",
-    "react-reveal": "^1.2.2",
     "react-scroll-parallax": "^3.4.5",
-    "react-scrollmagic": "^2.3.0",
     "react-slick": "^0.30.2",
     "styled-components": "^6.1.13"
   },
