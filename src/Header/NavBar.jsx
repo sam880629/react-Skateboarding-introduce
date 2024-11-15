@@ -1,30 +1,42 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import "./NavBar.css"
 
 const NavBar = () => {
-  const [prevScrollpos, setPrevScrollpos] = useState(window.scrollY);
-  const [visible, setVisible] = useState(true);
+  const navBarRef = useRef(null);
+  const prevScrollposRef = useRef(null);
+ 
+
 
   const handleScroll = () => {
     const currentScrollPos = window.scrollY;
-    setVisible(prevScrollpos > currentScrollPos);
-    setPrevScrollpos(currentScrollPos);
+
+    const isScrollingUp = prevScrollposRef.current > currentScrollPos;
+    // 使用 GSAP 改變 NavBar 的位置
+    gsap.to(navBarRef.current, {
+      y: isScrollingUp ? 0 : -65, // 上滑顯示，向下隱藏
+      duration: 0.4,
+      ease: "power2.out",
+    });
+
+    prevScrollposRef.current = currentScrollPos;
+
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollpos]);
+  }, []);
 
   return (
-    <div className= {`nav-bar ${visible?"":"nav-bar-hidden"}`}>
+    <div ref={navBarRef} className="nav-bar">
       <div className="nav-bar-logo ">LOGO</div>
-      <ul >
-        <li className="">Technology</li>
+      {/* <ul>
+        <li>Technology</li>
         <li>Use Cases</li>
         <li>Company</li>
         <li>Create</li>
-      </ul>
+      </ul> */}
     </div>
   );
 };

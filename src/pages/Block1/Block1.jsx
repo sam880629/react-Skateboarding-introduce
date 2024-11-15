@@ -10,9 +10,9 @@ const Block1 = () => {
         loop
         playsInline
         disableRemotePlayback
-        // src="../src/assets/videos/blockVideo1.mp4"
-        // data-src="../src/assets/videos/blockVideo2.mp4"
-        // data-src-mobile="../src/assets/videos/blockVideo2.mp4"
+        src="/assets/videos/blockVideo1.mp4"
+        data-src="/assets/videos/blockVideo2.mp4"
+        data-src-mobile="/assets/videos/blockVideo2.mp4"
       />
     </div>
   );
