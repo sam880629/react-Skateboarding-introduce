@@ -97,7 +97,7 @@ const ImgScroll = () => {
         <img
           ref={mainImgRef}
           className="w-full h-screen object-cover"
-          src="/src/assets/images/skateBoard10.jpg"
+          src="/assets/images/skateBoard10.jpg"
           alt="Main skateboard"
           style={{ transform: 'translate(0, 0)' }} 
         />
@@ -110,7 +110,7 @@ const ImgScroll = () => {
         >
           <img
             className="  shadow-lg "
-             src="../src/assets/images/skateBoard7.jpg"
+             src="/assets/images/skateBoard7.jpg"
             alt="Left top skateboard"
           />
           <img
