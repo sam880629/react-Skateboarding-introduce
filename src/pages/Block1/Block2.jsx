@@ -51,22 +51,26 @@ const FullPageScroll = () => {
   const isScrolling = useRef(false);
   const StartRef = useRef(null);
 
-
   useEffect(() => {
     const sectionsArray = gsap.utils.toArray(".section");
     let scrollTimeout;
-    console.log('now',currentSection);
+
     // 滾動到指定區塊
     const scrollToSection = (index) => {
-
       if (isScrolling.current) return;
-        console.log('scrollToSection', index);
+      
         
       // 當滾動到第一個區塊時，確保整個組件滾到視圖中
-      if (index === 0) {
-        const targetPosition = StartRef.current?.offsetTop || 0;
+      if (index === -1 || index >= sections.length) {
+        if(index>= sections.length) setCurrentSection(index-1)
+
+        const targetPosition = index < 0 ?
+         (StartRef.current?.offsetTop ) - window.innerHeight
+        : (StartRef.current?.offsetTop ) +
+            StartRef.current?.offsetHeight;
+  
         isScrolling.current = true;
-        
+
         gsap.to(window, {
           duration: 0.8,
           scrollTo: {
@@ -75,7 +79,6 @@ const FullPageScroll = () => {
           },
           ease: "power2.out",
           onComplete: () => {
-            setCurrentSection(0);
             isScrolling.current = false;
           },
         });
@@ -85,11 +88,23 @@ const FullPageScroll = () => {
       // 處理內容區域的滾動
       if (index >= 0 && index < sections.length) {
         isScrolling.current = true;
+        
         setCurrentSection(index);
 
+        gsap.to(window, {
+            duration: 0.8,
+            scrollTo: {
+              y: StartRef.current,
+              offsetY: 0,
+            },
+            ease: "power2.out",
+            onComplete: () => {
+              isScrolling.current = false;
+            },
+          });
         gsap.to(containerRef.current, {
           duration: 0.8,
-          y: -index  * window.innerHeight,
+          y: -index * window.innerHeight,
           ease: "power2.out",
           onComplete: () => {
             isScrolling.current = false;
@@ -101,7 +116,7 @@ const FullPageScroll = () => {
           if (img) {
             gsap.to(img, {
               duration: 0.6,
-              opacity: i === index  ? 1 : 0,
+              opacity: i === index ? 1 : 0,
               ease: "power2.inOut",
             });
           }
@@ -112,61 +127,19 @@ const FullPageScroll = () => {
     const handleWheel = (e) => {
       e.preventDefault();
       clearTimeout(scrollTimeout);
-      console.log(currentSection);
-      console.log("wheel");
 
       scrollTimeout = setTimeout(() => {
         const direction = e.deltaY > 0 ? 1 : -1;
-        
 
         // 初始進入區塊
         if (direction === 1 && currentSection === -1) {
-            console.log('初始');
-            
-          scrollToSection(0);
+          
+          setCurrentSection(0);
           return;
         }
-
         const nextSection = currentSection + direction;
-        console.log('nextSection',nextSection);
+        scrollToSection(nextSection);
         
-        // 在有效範圍內滾動
-        if (nextSection >= 0 && nextSection < sections.length) {
-            console.log('有效',nextSection);
-            
-          scrollToSection(nextSection);
-        }
-        // 離開區塊
-        else if (nextSection < 0 || nextSection >= sections.length) {
-          isScrolling.current = true;
-          console.log('離開');
-          
-          setCurrentSection(-1);
-
-          // 根據方向決定滾動位置
-          const targetPosition = nextSection < 0
-            ? (StartRef.current?.offsetTop || 0) - window.innerHeight
-            : (StartRef.current?.offsetTop || 0) + StartRef.current?.offsetHeight;
-
-          gsap.to(window, {
-            duration: 0.8,
-            scrollTo: {
-              y: targetPosition,
-              offsetY: 0,
-            },
-            ease: "power2.out",
-            onComplete: () => {
-                console.log('移除wheel');
-                
-              isScrolling.current = false;
-              // 移除事件監聽，允許正常滾動
-              const el = document.querySelector("#block2");
-              if (el) {
-                el.removeEventListener("wheel", handleWheel);
-              }
-            },
-          });
-        }
       }, 50);
     };
 
@@ -189,16 +162,15 @@ const FullPageScroll = () => {
 
     // 創建滾動觸發器
     ScrollTrigger.create({
-      trigger: "#block2",
-      start: "top 30%",
-      end: "bottom bottom",
-      onEnter: () => {
-        if (currentSection === -1) {
+        trigger: "#block2",
+        start: "top 30%",
+        end: "bottom bottom",
+        scrub: true,
+        onEnter: () => {
             scrollToSection(0)
-        }
-      },
-      markers: true,
-    });
+        },
+        // markers: true,
+      });
 
     return () => {
       if (el) {
@@ -213,10 +185,10 @@ const FullPageScroll = () => {
     <div
       id="block2"
       ref={StartRef}
-      className="h-screen block  w-full top-0 left-0 overflow-hidden"
+      className="h-screen block  w-full  relative overflow-hidden"
     >
       {/* 導航點 */}
-      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50">
+      <div className=" absolute right-8 top-1/2 -translate-y-1/2 z-50">
         {sections.map((section, index) => (
           <div
             key={index}

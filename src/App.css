@@ -17,7 +17,7 @@
   width: 100%;
   font-size: 18px;
   font-family: gingerRegular, sans-serif;
-  min-height: 3000px;
+  /* min-height: 3000px; */
   height: auto;
   background-color: #333;
 }
