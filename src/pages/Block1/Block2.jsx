@@ -54,7 +54,7 @@ const FullPageScroll = () => {
   useEffect(() => {
     const sectionsArray = gsap.utils.toArray(".section");
     let scrollTimeout;
-
+   
     // 滾動到指定區塊
     const scrollToSection = (index) => {
       if (isScrolling.current) return;
@@ -63,7 +63,7 @@ const FullPageScroll = () => {
       // 當滾動到第一個區塊時，確保整個組件滾到視圖中
       if (index === -1 || index >= sections.length) {
         if(index>= sections.length) setCurrentSection(index-1)
-
+        
         const targetPosition = index < 0 ?
          (StartRef.current?.offsetTop ) - window.innerHeight
         : (StartRef.current?.offsetTop ) +
@@ -167,7 +167,11 @@ const FullPageScroll = () => {
         end: "bottom bottom",
         scrub: true,
         onEnter: () => {
+            document.body.style.overflow = 'hidden';
             scrollToSection(0)
+        },
+        onLeave: () => {
+            document.body.style.overflow = '';
         },
         // markers: true,
       });
