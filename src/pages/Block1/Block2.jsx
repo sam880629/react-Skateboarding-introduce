@@ -1,103 +1,110 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import ScrollToPlugin from "gsap/ScrollToPlugin";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollToPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
+const sections = [
+  {
+    id: 1,
+    title: "Origins of Skateboarding",
+    time: "1940s and 1950s",
+    description:
+      "Skateboarding originated in California in the 1940s and 1950s when surfers wanted to recreate the feeling of surfing on land. They attached wheels to wooden planks, creating the earliest form of skateboards, often referred to as 'sidewalk surfing.' Initially handmade and simple, skateboards soon grew in popularity among Californian youth, and by the 1960s, skateboarding became commercialized and spread as a popular pastime.",
+    image: "/assets/images/skateboard.jpg",
+    style: { objectPosition: "center" },
+  },
+  {
+    id: 2,
+    title: "Alan Gelfand's 'Ollie' Trick",
+    time: "1978",
+    description:
+      "Alan Gelfand invented the 'ollie,' the first skateboarding trick where the skateboarder can jump without using their hands. The ollie became the foundation for countless aerial tricks and marked a new era in skateboarding. This revolutionary trick made it possible to perform intricate maneuvers on flat ground and led to the rise of modern skateboarding.",
+    image: "/assets/images/Ollie.jpg",
+    style: { objectPosition: "top" },
+  },
+  {
+    id: 3,
+    title: "X Games Launch",
+    time: "1995",
+    description:
+      "The X Games, organized by ESPN, were first held in 1995 and included skateboarding as one of its core events. This brought skateboarding to a global audience, boosting its popularity significantly. The competition showcased the best skateboarders and their innovative tricks, establishing skateboarding as a professional sport and exposing it to millions of viewers worldwide.",
+    image: "/assets/images/Xgames.jpg",
+    style: { objectPosition: "top" },
+  },
+  {
+    id: 4,
+    title: "Skateboarding Enters the Olympics",
+    time: "2021",
+    description:
+      "Skateboarding debuted as an official Olympic sport at the 2021 Tokyo Olympics, marking its recognition by the global sports community. The inclusion in the Olympics elevated skateboarding's legitimacy and professional standing, bringing greater attention to the sport and inspiring a new generation of skaters worldwide.",
+    image: "/assets/images/Olympics2.jpg",
+    style: { objectPosition: "top" },
+  },
+];
+
 const FullPageScroll = () => {
-  const [isFixed, setIsFixed] = useState(false);
-  const [currentSection, setCurrentSection] = useState(0);
+  const [currentSection, setCurrentSection] = useState(-1);
   const containerRef = useRef(null);
   const isScrolling = useRef(false);
   const StartRef = useRef(null);
-  const sections = [
-    {
-      id: 1,
-      title: "Origins of Skateboarding",
-      time: "1940s and 1950s",
-      description:
-        "Skateboarding originated in California in the 1940s and 1950s when surfers wanted to recreate the feeling of surfing on land. They attached wheels to wooden planks, creating the earliest form of skateboards, often referred to as 'sidewalk surfing.' Initially handmade and simple, skateboards soon grew in popularity among Californian youth, and by the 1960s, skateboarding became commercialized and spread as a popular pastime.",
-      image: "/assets/images/skateboard.jpg",
-      style: { objectPosition: "center" },
-    },
-    {
-      id: 2,
-      title: "Alan Gelfand's 'Ollie' Trick",
-      time: "1978",
-      description:
-        "Alan Gelfand invented the 'ollie,' the first skateboarding trick where the skateboarder can jump without using their hands. The ollie became the foundation for countless aerial tricks and marked a new era in skateboarding. This revolutionary trick made it possible to perform intricate maneuvers on flat ground and led to the rise of modern skateboarding.",
-      image: "/assets/images/Ollie.jpg",
-      style: { objectPosition: "top" },
-    },
-    {
-      id: 3,
-      title: "X Games Launch",
-      time: "1995",
-      description:
-        "The X Games, organized by ESPN, were first held in 1995 and included skateboarding as one of its core events. This brought skateboarding to a global audience, boosting its popularity significantly. The competition showcased the best skateboarders and their innovative tricks, establishing skateboarding as a professional sport and exposing it to millions of viewers worldwide.",
-      image: "/assets/images/Xgames.jpg",
-      style: { objectPosition: "top" },
-    },
-    {
-      id: 4,
-      title: "Skateboarding Enters the Olympics",
-      time: "2021",
-      description:
-        "Skateboarding debuted as an official Olympic sport at the 2021 Tokyo Olympics, marking its recognition by the global sports community. The inclusion in the Olympics elevated skateboarding's legitimacy and professional standing, bringing greater attention to the sport and inspiring a new generation of skaters worldwide.",
-      image: "/assets/images/Olympics2.jpg",
-      style: { objectPosition: "top" },
-    },
-  ];
+
 
   useEffect(() => {
     const sectionsArray = gsap.utils.toArray(".section");
     let scrollTimeout;
-    
-    document.body.style.overflow = "hidden";
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        
-        if (entry.isIntersecting) {
-          setIsFixed(true);
-          console.log("scroll");
-        } else {
-          setIsFixed(false);
-          console.log("no-scroll");
-        }
-      },
-      { threshold: 0.8 }
-    );
-
-   observer.observe(StartRef.current);
-    
+    console.log('now',currentSection);
+    // 滾動到指定區塊
     const scrollToSection = (index) => {
-      if (isScrolling.current) return;
 
+      if (isScrolling.current) return;
+        console.log('scrollToSection', index);
+        
+      // 當滾動到第一個區塊時，確保整個組件滾到視圖中
+      if (index === 0) {
+        const targetPosition = StartRef.current?.offsetTop || 0;
+        isScrolling.current = true;
+        
+        gsap.to(window, {
+          duration: 0.8,
+          scrollTo: {
+            y: targetPosition,
+            offsetY: 0,
+          },
+          ease: "power2.out",
+          onComplete: () => {
+            setCurrentSection(0);
+            isScrolling.current = false;
+          },
+        });
+        return;
+      }
+
+      // 處理內容區域的滾動
       if (index >= 0 && index < sections.length) {
         isScrolling.current = true;
         setCurrentSection(index);
 
-        // 動畫過渡效果
         gsap.to(containerRef.current, {
           duration: 0.8,
-          y: -index * window.innerHeight,
+          y: -index  * window.innerHeight,
           ease: "power2.out",
           onComplete: () => {
             isScrolling.current = false;
           },
         });
 
-        // 淡入淡出圖片
         sectionsArray.forEach((section, i) => {
           const img = section.querySelector(".image-section");
-          gsap.to(img, {
-            duration: 0.6,
-            opacity: i === index ? 1 : 0,
-            ease: "power2.inOut",
-          });
+          if (img) {
+            gsap.to(img, {
+              duration: 0.6,
+              opacity: i === index  ? 1 : 0,
+              ease: "power2.inOut",
+            });
+          }
         });
       }
     };
@@ -105,40 +112,112 @@ const FullPageScroll = () => {
     const handleWheel = (e) => {
       e.preventDefault();
       clearTimeout(scrollTimeout);
+      console.log(currentSection);
+      console.log("wheel");
 
       scrollTimeout = setTimeout(() => {
         const direction = e.deltaY > 0 ? 1 : -1;
+        
+
+        // 初始進入區塊
+        if (direction === 1 && currentSection === -1) {
+            console.log('初始');
+            
+          scrollToSection(0);
+          return;
+        }
+
         const nextSection = currentSection + direction;
+        console.log('nextSection',nextSection);
+        
+        // 在有效範圍內滾動
         if (nextSection >= 0 && nextSection < sections.length) {
+            console.log('有效',nextSection);
+            
           scrollToSection(nextSection);
+        }
+        // 離開區塊
+        else if (nextSection < 0 || nextSection >= sections.length) {
+          isScrolling.current = true;
+          console.log('離開');
+          
+          setCurrentSection(-1);
+
+          // 根據方向決定滾動位置
+          const targetPosition = nextSection < 0
+            ? (StartRef.current?.offsetTop || 0) - window.innerHeight
+            : (StartRef.current?.offsetTop || 0) + StartRef.current?.offsetHeight;
+
+          gsap.to(window, {
+            duration: 0.8,
+            scrollTo: {
+              y: targetPosition,
+              offsetY: 0,
+            },
+            ease: "power2.out",
+            onComplete: () => {
+                console.log('移除wheel');
+                
+              isScrolling.current = false;
+              // 移除事件監聽，允許正常滾動
+              const el = document.querySelector("#block2");
+              if (el) {
+                el.removeEventListener("wheel", handleWheel);
+              }
+            },
+          });
         }
       }, 50);
     };
 
     const handleResize = () => {
-      gsap.to(containerRef.current, {
-        duration: 0,
-        y: -currentSection * window.innerHeight,
-      });
+      if (currentSection >= 0) {
+        gsap.to(containerRef.current, {
+          duration: 0,
+          y: -currentSection * window.innerHeight,
+        });
+      }
     };
 
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("resize", handleResize);
+    // 添加事件監聽
+    const el = document.querySelector("#block2");
+
+    if (el) {
+      el.addEventListener("wheel", handleWheel, { passive: false });
+      window.addEventListener("resize", handleResize);
+    }
+
+    // 創建滾動觸發器
+    ScrollTrigger.create({
+      trigger: "#block2",
+      start: "top 30%",
+      end: "bottom bottom",
+      onEnter: () => {
+        if (currentSection === -1) {
+            scrollToSection(0)
+        }
+      },
+      markers: true,
+    });
 
     return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("wheel", handleWheel);
+      if (el) {
+        el.removeEventListener("wheel", handleWheel);
+      }
       window.removeEventListener("resize", handleResize);
       clearTimeout(scrollTimeout);
-      observer.disconnect();
     };
-  }, [currentSection, sections.length]);
+  }, [currentSection]);
 
   return (
-    <div ref={StartRef} className="h-screen block  w-full top-0 left-0">
+    <div
+      id="block2"
+      ref={StartRef}
+      className="h-screen block  w-full top-0 left-0 overflow-hidden"
+    >
       {/* 導航點 */}
       <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50">
-        {sections.map((_, index) => (
+        {sections.map((section, index) => (
           <div
             key={index}
             className="w-3 h-3 rounded-full bg-white my-2 cursor-pointer transition-transform duration-300"
@@ -169,7 +248,7 @@ const FullPageScroll = () => {
           >
             {/* 背景圖片 */}
             <div
-              className={`rounded-xl image-section absolute inset-0 h-full transition-opacity duration-500 ease-in-out ${
+              className={` rounded-xl image-section absolute inset-0 h-full transition-opacity duration-500 ease-in-out ${
                 index === currentSection ? "opacity-100" : "opacity-0"
               }`}
             >
