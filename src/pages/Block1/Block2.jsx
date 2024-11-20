@@ -78,6 +78,7 @@ const FullPageScroll = () => {
           },
           ease: "power2.out",
           onComplete: () => {
+            document.body.style.overflow = "";
             isScrolling.current = false;
           },
         });
@@ -87,7 +88,7 @@ const FullPageScroll = () => {
       // 處理內容區域的滾動
       if (index >= 0 && index < sections.length) {
         isScrolling.current = true;
-
+        document.body.style.overflow = "hidden";
         setCurrentSection(index);
 
         gsap.to(window, {
@@ -126,22 +127,21 @@ const FullPageScroll = () => {
     let touchStartY = 0;
     let touchEndY = 0;
 
-    const handleScroll  = (e) => {
+    const handleScroll = (e) => {
       e.preventDefault();
       clearTimeout(scrollTimeout);
-        let direction 
+      let direction;
       scrollTimeout = setTimeout(() => {
-        console.log(e.type);
-        
+      
+
         // wheel 事件
-        if(e.type ==='wheel'){
-            direction = e.deltaY > 0 ? 1 : -1;
-        }else if(e.type ==='touchmove'){
-            const touch = e.touches[0];
-            touchEndY = touch.clientY;
-            direction = touchStartY > touchEndY ? 1 : -1;
+        if (e.type === "wheel") {
+          direction = e.deltaY > 0 ? 1 : -1;
+        } else if (e.type === "touchmove") {
+          const touch = e.touches[0];
+          touchEndY = touch.clientY;
+          direction = touchStartY > touchEndY ? 1 : -1;
         }
-        
 
         // 初始進入區塊
         if (direction === 1 && currentSection === -1) {
@@ -152,10 +152,10 @@ const FullPageScroll = () => {
         scrollToSection(nextSection);
       }, 50);
     };
-// 記錄觸控起始位置
-const handleTouchStart = (e) => {
-    touchStartY = e.touches[0].clientY;
-};
+    // 記錄觸控起始位置
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+    };
     const handleResize = () => {
       if (currentSection >= 0) {
         gsap.to(containerRef.current, {
@@ -169,10 +169,10 @@ const handleTouchStart = (e) => {
     const el = document.querySelector("#block2");
 
     if (el) {
-      // 電腦滾輪事件
-      el.addEventListener("scroll", handleScroll );
+      // 電腦wheel事件
+      el.addEventListener("wheel", handleScroll);
       // 手機觸控事件
-      el.addEventListener('touchstart', handleTouchStart);
+      el.addEventListener("touchstart", handleTouchStart);
       el.addEventListener("touchmove", handleScroll);
 
       window.addEventListener("resize", handleResize);
@@ -185,20 +185,19 @@ const handleTouchStart = (e) => {
       end: "bottom bottom",
       scrub: true,
       onEnter: () => {
-        document.body.style.overflow = "hidden";
         scrollToSection(0);
-      },
-      onLeave: () => {
-        document.body.style.overflow = "";
       },
       // markers: true,
     });
 
     return () => {
       if (el) {
-        el.removeEventListener("wheel", handleScroll );
+        el.removeEventListener("wheel", handleScroll);
+        el.removeEventListener("touchstart", handleTouchStart);
+        el.removeEventListener("touchmove", handleScroll);
       }
       window.removeEventListener("resize", handleResize);
+
       clearTimeout(scrollTimeout);
     };
   }, [currentSection]);
