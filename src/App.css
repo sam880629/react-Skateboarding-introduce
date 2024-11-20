@@ -19,7 +19,7 @@
   font-family: gingerRegular, sans-serif;
   /* min-height: 3000px; */
   height: auto;
-  background-color: #333;
+  background-color: #222;
 }
 
 /* 滾動條ST */
@@ -52,15 +52,7 @@ body {
     margin-bottom: 120px;
   }
 }
-.toutCopy {
-  padding-left: 20px;
-}
 
-@media only screen and (min-width: 640px) {
-  .toutCopy {
-    padding: 130px;
-  }
-}
 
 .toutHeader {
   font-size: 34px;
@@ -68,10 +60,6 @@ body {
   margin-bottom: 1rem;
 }
 
-.toutText {
-  max-width: 470px;
-  display: inline-block;
-}
 
 .toutImage {
   background-image: url(https://source.unsplash.com/user/erondu/800x600);
@@ -118,9 +106,7 @@ body {
   margin-bottom: 1rem;
 }
 
-.toutText--overlap {
-  max-width: 470px;
-}
+
 
 .tout-overlap-copy--parallax-right {
   margin-left: auto;

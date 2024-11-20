@@ -75,7 +75,7 @@ const Block1 = () => {
       <div  className="absolute z-10 inset-0 flex flex-col justify-center items-center text-gray-200  ">
         <h1
           ref={titleRef}
-          className="text-3xl md:text-6xl  lg:text-8xl mb-2 md:mb-6 text-center tracking-wider"
+          className="text-3xl md:text-6xl lg:text-8xl xl:text-9xl mb-2 md:mb-6 text-center tracking-wider"
           style={{ fontFamily: "'Rubik Mono One', sans-serif" }}
         >
           SKATE OR DIE
@@ -83,7 +83,7 @@ const Block1 = () => {
         <div className="max-w-2xl text-center space-y-4">
           <p
             ref={contentRef}
-            className="text-sm md:text-xl tracking-wide"
+            className="text-sm md:text-xl lg:text-2xl tracking-wide"
             style={{ fontFamily: "'Teko', sans-serif" }}
           >
             "Life is like skateboarding... It's all about getting up when you

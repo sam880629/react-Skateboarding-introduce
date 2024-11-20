@@ -3,7 +3,7 @@ import { ParallaxProvider } from "react-scroll-parallax";
 import NavBar from "./Header/NavBar";
 import ImgSroll from "./pages/ImgSroll/ImgSroll";
 import Block1 from "./pages/Block1/Block1";
-import Introduce from "./pages/Introduce/Introduce";
+import About from "./pages/About/About";
 
 import History from "./pages/History/History";
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
         <NavBar />
       
         <Block1 />
-        <Introduce />
+        <About />
         <ImgSroll />
         <History />
        
