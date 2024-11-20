@@ -152,10 +152,7 @@ const FullPageScroll = () => {
         scrollToSection(nextSection);
       }, 50);
     };
-    // 記錄觸控起始位置
-    const handleTouchStart = (e) => {
-      touchStartY = e.touches[0].clientY;
-    };
+ 
     const handleResize = () => {
       if (currentSection >= 0) {
         gsap.to(containerRef.current, {
@@ -172,7 +169,6 @@ const FullPageScroll = () => {
       // 電腦wheel事件
       el.addEventListener("wheel", handleScroll);
       // 手機觸控事件
-      el.addEventListener("touchstart", handleTouchStart);
       el.addEventListener("touchmove", handleScroll);
 
       window.addEventListener("resize", handleResize);
@@ -193,7 +189,6 @@ const FullPageScroll = () => {
     return () => {
       if (el) {
         el.removeEventListener("wheel", handleScroll);
-        el.removeEventListener("touchstart", handleTouchStart);
         el.removeEventListener("touchmove", handleScroll);
       }
       window.removeEventListener("resize", handleResize);
@@ -209,7 +204,7 @@ const FullPageScroll = () => {
       className="h-screen block  w-full  relative overflow-hidden"
     >
       {/* 導航點 */}
-      <div className=" absolute right-8 top-1/2 -translate-y-1/2 z-50">
+      <div className=" absolute right-2 top-1/2 -translate-y-1/2 z-50">
         {sections.map((section, index) => (
           <div
             key={index}
@@ -233,7 +228,7 @@ const FullPageScroll = () => {
       </div>
 
       {/* 內容區域 */}
-      <div ref={containerRef} className="relative f h-full w-full touch-none">
+      <div ref={containerRef} className="relative  h-full w-full touch-none">
         {sections.map((section, index) => (
           <section
             key={section.id}
@@ -255,14 +250,17 @@ const FullPageScroll = () => {
             </div>
 
             {/* 文字內容 */}
-            <div className="relative z-10 max-w-4xl mx-auto p-6 md:p-10">
-              <div className="text-xl md:text-2xl text-gray-400 mb-2">
+            <div className="relative z-10 max-w-4xl mx-auto p-6 md:p-10 ">
+                {/* 年份 */}
+              <div className="text-xl md:text-2xl text-gray-400 mb-2 font-black">
                 {section.time}
               </div>
-              <h2 className="text-3xl md:text-5xl font-black text-white mb-4 md:mb-6">
+              {/* 標題 */}
+              <h2 className="text-3xl md:mt-5 md:text-6xl font-black text-white mb-4 md:mb-6">
                 {section.title}
               </h2>
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed">
+              {/* 說明*/}
+              <p className="text-lg md:mt-10 md:text-2xl text-gray-200 leading-relaxed">
                 {section.description}
               </p>
             </div>

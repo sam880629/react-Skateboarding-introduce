@@ -100,7 +100,7 @@ const History = () => {
       });
      
     } else {
-      // 桌面版動畫保持不變
+      // 桌面版
       ScrollTrigger.create({
         trigger: imageContainerRef.current,
         pin: true,
