@@ -54,21 +54,20 @@ const FullPageScroll = () => {
   useEffect(() => {
     const sectionsArray = gsap.utils.toArray(".section");
     let scrollTimeout;
-   
+
     // 滾動到指定區塊
     const scrollToSection = (index) => {
       if (isScrolling.current) return;
-      
-        
+
       // 當滾動到第一個區塊時，確保整個組件滾到視圖中
       if (index === -1 || index >= sections.length) {
-        if(index>= sections.length) setCurrentSection(index-1)
-        
-        const targetPosition = index < 0 ?
-         (StartRef.current?.offsetTop ) - window.innerHeight
-        : (StartRef.current?.offsetTop ) +
-            StartRef.current?.offsetHeight;
-  
+        if (index >= sections.length) setCurrentSection(index - 1);
+
+        const targetPosition =
+          index < 0
+            ? StartRef.current?.offsetTop - window.innerHeight
+            : StartRef.current?.offsetTop + StartRef.current?.offsetHeight;
+
         isScrolling.current = true;
 
         gsap.to(window, {
@@ -88,20 +87,20 @@ const FullPageScroll = () => {
       // 處理內容區域的滾動
       if (index >= 0 && index < sections.length) {
         isScrolling.current = true;
-        
+
         setCurrentSection(index);
 
         gsap.to(window, {
-            duration: 0.8,
-            scrollTo: {
-              y: StartRef.current,
-              offsetY: 0,
-            },
-            ease: "power2.out",
-            onComplete: () => {
-              isScrolling.current = false;
-            },
-          });
+          duration: 0.8,
+          scrollTo: {
+            y: StartRef.current,
+            offsetY: 0,
+          },
+          ease: "power2.out",
+          onComplete: () => {
+            isScrolling.current = false;
+          },
+        });
         gsap.to(containerRef.current, {
           duration: 0.8,
           y: -index * window.innerHeight,
@@ -124,25 +123,39 @@ const FullPageScroll = () => {
       }
     };
 
-    const handleWheel = (e) => {
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    const handleScroll  = (e) => {
       e.preventDefault();
       clearTimeout(scrollTimeout);
-
+        let direction 
       scrollTimeout = setTimeout(() => {
-        const direction = e.deltaY > 0 ? 1 : -1;
+        console.log(e.type);
+        
+        // wheel 事件
+        if(e.type ==='wheel'){
+            direction = e.deltaY > 0 ? 1 : -1;
+        }else if(e.type ==='touchmove'){
+            const touch = e.touches[0];
+            touchEndY = touch.clientY;
+            direction = touchStartY > touchEndY ? 1 : -1;
+        }
+        
 
         // 初始進入區塊
         if (direction === 1 && currentSection === -1) {
-          
           setCurrentSection(0);
           return;
         }
         const nextSection = currentSection + direction;
         scrollToSection(nextSection);
-        
       }, 50);
     };
-
+// 記錄觸控起始位置
+const handleTouchStart = (e) => {
+    touchStartY = e.touches[0].clientY;
+};
     const handleResize = () => {
       if (currentSection >= 0) {
         gsap.to(containerRef.current, {
@@ -156,29 +169,34 @@ const FullPageScroll = () => {
     const el = document.querySelector("#block2");
 
     if (el) {
-      el.addEventListener("wheel", handleWheel, { passive: false });
+      // 電腦滾輪事件
+      el.addEventListener("scroll", handleScroll );
+      // 手機觸控事件
+      el.addEventListener('touchstart', handleTouchStart);
+      el.addEventListener("touchmove", handleScroll);
+
       window.addEventListener("resize", handleResize);
     }
 
     // 創建滾動觸發器
     ScrollTrigger.create({
-        trigger: "#block2",
-        start: "top 30%",
-        end: "bottom bottom",
-        scrub: true,
-        onEnter: () => {
-            document.body.style.overflow = 'hidden';
-            scrollToSection(0)
-        },
-        onLeave: () => {
-            document.body.style.overflow = '';
-        },
-        // markers: true,
-      });
+      trigger: "#block2",
+      start: "top 30%",
+      end: "bottom bottom",
+      scrub: true,
+      onEnter: () => {
+        document.body.style.overflow = "hidden";
+        scrollToSection(0);
+      },
+      onLeave: () => {
+        document.body.style.overflow = "";
+      },
+      // markers: true,
+    });
 
     return () => {
       if (el) {
-        el.removeEventListener("wheel", handleWheel);
+        el.removeEventListener("wheel", handleScroll );
       }
       window.removeEventListener("resize", handleResize);
       clearTimeout(scrollTimeout);
