@@ -40,7 +40,7 @@ const Introduce = () => {
     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quaeab illo inventore veritatis et quasi architecto beatae vitae dictasunt explicabo. Nemo enim ipsam voluptatem quia voluptas sitaspernatur aut odit aut fugit, sed quia consequuntur magni dolores eosqui ratione voluptatem sequi nesciunt. Neque porro quisquam est, quidolorem ipsum";
 
   return (
-    <div className="relative min-h-screen bg-black">
+    <div className="relative h-screen bg-black">
       <section
         ref={wrapperRef}
         className="relative w-full h-screen overflow-hidden"

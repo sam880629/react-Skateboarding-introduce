@@ -1,40 +1,64 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Block1 = () => {
-  const h1Ref = useRef(null);
-  const pRef = useRef(null);
-  const textRef = useRef(null);
-
+  const videoRef = useRef(null)
+  const titleRef = useRef(null);
+  const contentRef = useRef(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  // 處理影片載入
   useEffect(() => {
-    // 先將文字設置為隱藏狀態
-    gsap.set([h1Ref.current, pRef.current], {
-       clipPath: "inset(100% 0 0 0)"
+    const video = videoRef.current;
+
+    // 設定初始狀態 - 隱藏文字
+    gsap.set([contentRef.current, titleRef.current], {
+      clipPath: "inset(100% 0 0 0)"
     });
 
-    const tl = gsap.timeline();
+    const handleVideoLoad = () => {
+      setIsVideoLoaded(true);
+    };
 
-    tl.to(h1Ref.current, {
-        clipPath: "inset(0 0 0 0)", // 完全顯示
-        duration: 1,
-        ease: "power4.out"
-      })
-      .to(pRef.current, {
-        clipPath: "inset(0 0 0 0)",
-        duration: 1,
-        ease: "power4.out"
-      }, "-=0.5"); // 在前一個動畫完成前 0.5 秒開始
+    // 檢查影片是否已經可以播放
+    if (video.readyState >= 3) {
+      handleVideoLoad();
+    } else {
+      video.addEventListener('canplay', handleVideoLoad);
+    }
 
+    return () => {
+      video.removeEventListener('canplay', handleVideoLoad);
+    };
   }, []);
+
+  // 處理文字動畫
+  useEffect(() => {
+    if (!isVideoLoaded) return;
+
+    const tl = gsap.timeline();
+    
+    tl.to(titleRef.current, {
+      clipPath: "inset(0 0 0 0)",
+      duration: 1,
+      ease: "power4.out"
+    })
+    .to(contentRef.current, {
+      clipPath: "inset(0 0 0 0)",
+      duration: 1,
+      ease: "power4.out"
+    }, "-=0.5");
+
+  }, [isVideoLoaded]); // 當 isVideoLoaded 變為 true 時觸發動畫
 
   return (
     <div className="w-screen h-screen page-hero  relative">
       {/* 影片設定 */}
       <video
+        ref= {videoRef}
         className="w-full h-full object-cover"
         width="1920"
         height="1080"
@@ -50,7 +74,7 @@ const Block1 = () => {
       {/* 內容 */}
       <div  className="absolute z-10 inset-0 flex flex-col justify-center items-center text-gray-200  ">
         <h1
-          ref={h1Ref}
+          ref={titleRef}
           className="text-3xl md:text-6xl  lg:text-8xl mb-2 md:mb-6 text-center tracking-wider"
           style={{ fontFamily: "'Rubik Mono One', sans-serif" }}
         >
@@ -58,7 +82,7 @@ const Block1 = () => {
         </h1>
         <div className="max-w-2xl text-center space-y-4">
           <p
-            ref={pRef}
+            ref={contentRef}
             className="text-sm md:text-xl tracking-wide"
             style={{ fontFamily: "'Teko', sans-serif" }}
           >

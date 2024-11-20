@@ -1,10 +1,12 @@
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import './History.css'
 
+gsap.registerPlugin(ScrollToPlugin);
 gsap.registerPlugin(ScrollTrigger);
 
+// 歷史資料
 const sections = [
   {
     id: 1,
@@ -13,7 +15,7 @@ const sections = [
     description:
       "Skateboarding originated in California in the 1940s and 1950s when surfers wanted to recreate the feeling of surfing on land. They attached wheels to wooden planks, creating the earliest form of skateboards, often referred to as 'sidewalk surfing.' Initially handmade and simple, skateboards soon grew in popularity among Californian youth, and by the 1960s, skateboarding became commercialized and spread as a popular pastime.",
     image: "/assets/images/skateboard.jpg",
-    style: { objectPosition: "center" }
+    className: 'object-center object-cover' ,
   },
   {
     id: 2,
@@ -22,7 +24,7 @@ const sections = [
     description:
       "Alan Gelfand invented the 'ollie,' the first skateboarding trick where the skateboarder can jump without using their hands. The ollie became the foundation for countless aerial tricks and marked a new era in skateboarding. This revolutionary trick made it possible to perform intricate maneuvers on flat ground and led to the rise of modern skateboarding.",
     image: "/assets/images/Ollie.jpg",
-    style: { objectPosition: "top" }
+    className: 'object-cover  object-center',
   },
   {
     id: 3,
@@ -31,7 +33,7 @@ const sections = [
     description:
       "The X Games, organized by ESPN, were first held in 1995 and included skateboarding as one of its core events. This brought skateboarding to a global audience, boosting its popularity significantly. The competition showcased the best skateboarders and their innovative tricks, establishing skateboarding as a professional sport and exposing it to millions of viewers worldwide.",
     image: "/assets/images/Xgames.jpg",
-    style: { objectPosition: "top" }
+    className: ' object-cover',
   },
   {
     id: 4,
@@ -40,171 +42,211 @@ const sections = [
     description:
       "Skateboarding debuted as an official Olympic sport at the 2021 Tokyo Olympics, marking its recognition by the global sports community. The inclusion in the Olympics elevated skateboarding's legitimacy and professional standing, bringing greater attention to the sport and inspiring a new generation of skaters worldwide.",
     image: "/assets/images/Olympics2.jpg",
-    style: { objectPosition: "top" }
+    className: 'object-top object-cover',
   },
 ];
 
-const History = () => {
+const FullPageScroll = () => {
+  const [currentSection, setCurrentSection] = useState(-1);
   const containerRef = useRef(null);
-  const textContainerRef = useRef(null);
-  const imageContainerRef = useRef(null);
+  const isScrolling = useRef(false);
+  const StartRef = useRef(null);
 
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    const textSections = gsap.utils.toArray(".text-section");
-    const images = gsap.utils.toArray(".image-section");
-  
-    if (isMobile) {
-      // 設定垂直滾動驅動水平移動
-      const totalScroll = textSections.length * 100; // 總滾動距離
+    const sectionsArray = gsap.utils.toArray(".section");
+    let scrollTimeout;
 
-      // 固定文字容器
-      ScrollTrigger.create({
-        trigger: textContainerRef.current,
-        pinSpacing: true,
-        start: "top top",
-        pin: true,
-        end: `+=${totalScroll}vh`,
-      });
+    // 滾動到指定區塊
+    const scrollToSection = (index) => {
+      if (isScrolling.current) return;
 
-      // 水平移動動畫
-      gsap.to(".text-track", {
-        x: () => -(textContainerRef.current.scrollWidth- window.innerWidth),
-       
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: `+=${totalScroll}vh`,
-          scrub: 0.1,
-          invalidateOnRefresh: true,
-          // pin: true,
-          // markers: true
+      // 當滾動到第一個區塊時，確保整個組件滾到視圖中
+      if (index === -1 || index >= sections.length) {
+        if (index >= sections.length) setCurrentSection(index - 1);
+
+        const targetPosition =
+          index < 0
+            ? StartRef.current?.offsetTop - window.innerHeight
+            : StartRef.current?.offsetTop + StartRef.current?.offsetHeight;
+
+        isScrolling.current = true;
+
+        gsap.to(window, {
+          duration: 0.8,
+          scrollTo: {
+            y: targetPosition,
+            offsetY: 0,
+          },
+          ease: "power2.out",
+          onComplete: () => {
+            document.body.style.overflow = "";
+            isScrolling.current = false;
+          },
+        });
+        return;
+      }
+
+      // 處理內容區域的滾動
+      if (index >= 0 && index < sections.length) {
+        isScrolling.current = true;
+        document.body.style.overflow = "hidden";
+        setCurrentSection(index);
+
+        gsap.to(window, {
+          duration: 0.8,
+          scrollTo: {
+            y: StartRef.current,
+            offsetY: 0,
+          },
+          ease: "power2.out",
+          onComplete: () => {
+            isScrolling.current = false;
+          },
+        });
+        gsap.to(containerRef.current, {
+          duration: 0.8,
+          y: -index * window.innerHeight,
+          ease: "power2.out",
+          onComplete: () => {
+            isScrolling.current = false;
+          },
+        });
+
+        sectionsArray.forEach((section, i) => {
+          const img = section.querySelector(".image-section");
+          if (img) {
+            gsap.to(img, {
+              duration: 0.6,
+              opacity: i === index ? 1 : 0,
+              ease: "power2.inOut",
+            });
+          }
+        });
+      }
+    };
+
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    const handleScroll = (e) => {
+      e.preventDefault();
+      clearTimeout(scrollTimeout);
+      let direction;
+      scrollTimeout = setTimeout(() => {
+      
+
+        // wheel 事件
+        if (e.type === "wheel") {
+          direction = e.deltaY > 0 ? 1 : -1;
+        } else if (e.type === "touchmove") {
+          const touch = e.touches[0];
+          touchEndY = touch.clientY;
+          direction = touchStartY > touchEndY ? 1 : -1;
         }
-      },'+=0.5');
-     
-      // 圖片切換動畫
-      textSections.forEach((section, i) => {
-        ScrollTrigger.create({
-          trigger: containerRef.current,
-          start: `${i * 100}vh top`,
-          end: `${(i + 1) * 100}vh top`,
-          onEnter: () => {
-            gsap.to(images, { opacity: 0, duration: 0.3 });
-            gsap.to(images[i], { opacity: 1, duration: 0.3 });
-          },
-          onEnterBack: () => {
-            gsap.to(images, { opacity: 0, duration: 0.3 });
-            gsap.to(images[i], { opacity: 1, duration: 0.3 });
-          },
-        });
-      });
-     
-    } else {
-      // 桌面版
-      ScrollTrigger.create({
-        trigger: imageContainerRef.current,
-        pin: true,
-        pinSpacing: false,
-        start: "top top",
-        end: () => `+=${containerRef.current.offsetHeight}`,
-      });
 
-      textSections.forEach((section, i) => {
-        const image = images[i];
-
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => {
-            gsap.to(images, { opacity: 0, duration: 0.3 });
-            gsap.to(image, { opacity: 1, duration: 0.3 });
-          },
-          onEnterBack: () => {
-            gsap.to(images, { opacity: 0, duration: 0.3 });
-            gsap.to(image, { opacity: 1, duration: 0.3 });
-          },
+        // 初始進入區塊
+        if (direction === 1 && currentSection === -1) {
+          setCurrentSection(0);
+          return;
+        }
+        const nextSection = currentSection + direction;
+        scrollToSection(nextSection);
+      }, 50);
+    };
+ 
+    const handleResize = () => {
+      if (currentSection >= 0) {
+        gsap.to(containerRef.current, {
+          duration: 0,
+          y: -currentSection * window.innerHeight,
         });
+      }
+    };
 
-        gsap.to(section, {
-          display: "flex",
-          opacity: 1,
-          y: 30,
-          duration: 1,
-          scrollTrigger: {
-            trigger: section,
-            start: "top center+=100",
-            end: "top center",
-            toggleActions: "play none none reverse",
-            scrub: 1,
-            ease: "power2.out",
-          },
-        });
-      });
+    // 添加事件監聽
+    const el = document.querySelector("#block2");
+
+    if (el) {
+      // 電腦wheel事件
+      el.addEventListener("wheel", handleScroll);
+      // 手機觸控事件
+      el.addEventListener("touchmove", handleScroll);
+
+      window.addEventListener("resize", handleResize);
     }
 
+    // 創建滾動觸發器
+    ScrollTrigger.create({
+      trigger: "#block2",
+      start: "top 30%",
+      end: "bottom bottom",
+      scrub: true,
+      onEnter: () => {
+        scrollToSection(0);
+      },
+      // markers: true,
+    });
+
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      if (el) {
+        el.removeEventListener("wheel", handleScroll);
+        el.removeEventListener("touchmove", handleScroll);
+      }
+      window.removeEventListener("resize", handleResize);
+
+      clearTimeout(scrollTimeout);
     };
-  }, []);
+  }, [currentSection]);
 
   return (
-    <div ref={containerRef} className="relative bg-[#333]">
-      <div className="flex flex-col md:flex-row">
-        {/* 文字區塊容器 */}
-        <div 
-          ref={textContainerRef}
-          className="historyText-div relative w-full md:w-1/2 overflow-hidden"
-        >
-          {/* 水平滾動軌道 */}
-          <div className="text-track flex md:block">
-            {sections.map((section) => (
-              <div
-                key={section.id}
-                className="text-section min-w-[100vw] md:min-w-0 h-[50vh] md:h-screen flex items-center md:opacity-0"
-              >
-                <div className="p-6 md:p-10">
-                  <h2 className="text-2xl md:text-5xl font-black text-gray-400 mb-4 md:mb-6">
-                    {section.title}
-                  </h2>
-                  <p className="text-base md:text-xl text-[#ccc]">
-                    {section.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+    <div
+      id="block2"
+      ref={StartRef}
+      className="h-screen block  w-full  relative overflow-hidden"
+    >
 
-        {/* 圖片區塊 */}
-        <div 
-          ref={imageContainerRef} 
-          className="historyImg-div h-[50vh] md:h-screen w-full md:w-1/2 sticky bottom-0 md:relative"
-        >
-          <div className="relative h-full">
-            {sections.map((section, index) => (
-              <div
-                key={section.id}
-                className={`w-full rounded-xl image-section absolute inset-0  h-full transition-opacity duration-500 ease-in-out ${
-                  index === 0 ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                <img
-                  src={section.image}
-                  alt={section.title}
-                  className="w-full h-full object-cover"
-                  style={section.style}
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-black/30" />
+      {/* 內容區域 */}
+      <div ref={containerRef} className="relative  h-full w-full touch-none">
+        {sections.map((section, index) => (
+          <section
+            key={section.id}
+            className="section h-screen w-full flex justify-center items-center relative"
+          >
+            {/* 背景圖片 */}
+            <div
+              className={` rounded-xl image-section absolute inset-0 h-full transition-opacity duration-500 ease-in-out ${
+                index === currentSection ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <img
+                src={section.image}
+                alt={section.title}
+                className={`w-full h-full   ${section.className}`}
+            
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70" />
+            </div>
+
+            {/* 文字內容 */}
+            <div className="relative z-10 max-w-4xl mx-auto p-6 md:p-10 ">
+                {/* 年份 */}
+              <div className="text-xl md:text-2xl text-gray-400 mb-2 font-black">
+                {section.time}
               </div>
-            ))}
-          </div>
-        </div>
+              {/* 標題 */}
+              <h2 className="text-3xl md:mt-5 md:text-4xl lg:text-6xl font-black text-white mb-4 md:mb-6">
+                {section.title}
+              </h2>
+              {/* 說明*/}
+              <p className="text-lg md:mt-10 md:text-xl lg:text-2xl text-gray-200 leading-relaxed">
+                {section.description}
+              </p>
+            </div>
+          </section>
+        ))}
       </div>
-
-      
     </div>
   );
 };
 
-export default History;
+export default FullPageScroll;
