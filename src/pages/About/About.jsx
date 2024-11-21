@@ -42,8 +42,7 @@ const About = () => {
   return (
     <section
       ref={wrapperRef}
-      className="relative w-full h-screen  overflow-hidden flex  m-auto justify-center  items-center  container  "
-      style={ {"padding": "11.5277777778vw 0 15.8333333333vw"}}
+      className="relative w-full h-screen  overflow-hidden flex  m-auto justify-center  items-center  container  my-auto"
     >
       {/* 左側文字 */}
       <ToutContent
@@ -53,14 +52,14 @@ const About = () => {
         ref={cont1Ref}
       />
       {/* 右側圖片 */}
-      <div className="w-1/2 relative h-full flex items-center ml-5 my-auto" >
-        <div  className="absolute right-0 top-0  transform translate-y-12">
+      <div className="w-1/2 relative h-full flex items-center ml-5 " >
+        <div  className="absolute right-0 bottom-0  z-10  transform translate-y-12  w-9/12 lg:w-6/12 ">
           <img src="/assets/images/About2.jpg" alt="placeholder" className=" object-cover rounded-lg shadow-lg" />
         </div>
-        <div  className="absolute left-0 top-0  transform translate-y-12">
+        <div  className="my-auto  w-9/12 lg:w-8/12">
           <img src="/assets/images/About1.jpg" alt="placeholder" className=" object-cover rounded-lg shadow-lg" />
         </div>
-        <div  className="absolute right-0 bottom-0  transform ">
+        <div  className="absolute right-0 top-0  transform w-7/12 z-10 ml-10">
           <img src="/assets/images/About3.jpg" alt="placeholder" className=" object-cover rounded-lg shadow-lg" />
         </div>
       </div>
