@@ -15,7 +15,7 @@ const sections = [
     description:
       "Skateboarding originated in California in the 1940s and 1950s when surfers wanted to recreate the feeling of surfing on land. They attached wheels to wooden planks, creating the earliest form of skateboards, often referred to as 'sidewalk surfing.' Initially handmade and simple, skateboards soon grew in popularity among Californian youth, and by the 1960s, skateboarding became commercialized and spread as a popular pastime.",
     image: "/assets/images/skateboard.jpg",
-    imagePc:"/assets/images/skateboard_pc.jpg",
+    imagePc:"/assets/images/skateboard_pc.jpeg",
     className: 'object-center object-cover' ,
   },
   {
@@ -161,7 +161,7 @@ const FullPageScroll = () => {
     const handleTouchStart = (e) => {
       touchStartY = e.touches[0].clientY;
     };
-    
+
     const handleResize = () => {
       if (currentSection >= 0) {
         gsap.to(containerRef.current, {
