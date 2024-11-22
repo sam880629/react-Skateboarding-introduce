@@ -54,11 +54,7 @@ body {
 }
 
 
-.toutHeader {
-  font-size: 34px;
-  color: #00cf75;
-  margin-bottom: 1rem;
-}
+
 
 
 .toutImage {
@@ -93,18 +89,8 @@ body {
   padding-top: 70px;
 }
 
-.toutCopy--overlap {
-  padding: 70px;
-  color: #fff;
-  background-color: #00cf75;
-  position: relative;
-}
 
-.toutHeader--overlap {
-  color: #fff;
-  font-size: 34px;
-  margin-bottom: 1rem;
-}
+
 
 
 
