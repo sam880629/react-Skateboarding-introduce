@@ -47,7 +47,7 @@ const About = () => {
   return (
     <section
       ref={wrapperRef}
-      className="relative w-full h-screen md:h-[150vh] lg:h-screen overflow-hidden flex flex-col lg:flex-row   justify-center items-center  px-8  py-20 md:pt-32 lg:py-24 md:px-10"
+      className="relative w-full h-screen md:h-[150vh] lg:h-screen overflow-hidden flex flex-col lg:flex-row   justify-center items-center  px-8  py-20 md:pt-32 lg:py-24 md:px-24"
     >
       {/* 左側文字 */}
       <ToutContent
@@ -72,7 +72,7 @@ const About = () => {
             className=" object-cover mt-10 shadow-lg"
           />
         </div>
-        <div className="absolute right-0  lg:right-0 bottom-[-10%] md:bottom-[-25%] lg:bottom-0 z-10     w-5/12 md:w-5/12 lg:w-4/12  ">
+        <div className="absolute right-0  lg:right-10 bottom-[-1%] md:bottom-[-25%] lg:bottom-0 z-10   w-5/12 md:w-5/12 lg:w-4/12  ">
           <img
             src="/assets/images/About2.jpg"
             alt="placeholder"
