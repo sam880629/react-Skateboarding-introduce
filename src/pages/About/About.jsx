@@ -8,25 +8,31 @@ gsap.registerPlugin(ScrollTrigger);
 const About = () => {
   const wrapperRef = useRef(null);
   const cont1Ref = useRef(null);
+  const img1Ref = useRef(null);
+  const img2Ref = useRef(null);
+  const img3Ref = useRef(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
     const cont1 = cont1Ref.current;
-
+    const img1 = img1Ref.current;
+    const img2 = img2Ref.current;
+    const img3 = img3Ref.current;
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: wrapper,
-        start: "top +=100%",
+        start: "top center",
         end: "bottom 100%",
         scrub: 1,
         // markers: true,
       },
     });
+    
     tl.from(cont1, {
       opacity: 0,
       duration: 1,
       y: "50",
-      ease: "power2.out",
+      ease: "power1.out",
     });
     tl.to(cont1, {
       opacity: 1,
@@ -34,7 +40,22 @@ const About = () => {
       y: "0",
       ease: "power2.out",
     });
+    // 圖片動畫，從左往右依序進入
+    tl.from([img1, img2, img3], {
+      x: "-20%", // 從左側開始
+      opacity: 0,
+      duration: 2,
+      ease: "power1.out",
+      stagger: 0.8, 
+    }, "-=1.5"); 
 
+    tl.to([img1, img2, img3], {
+      x: "0", 
+      opacity: 1,
+      duration: 2.5,
+      ease: "power1.out",
+      stagger: 0.8, 
+    }, "-=1.5"); 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
@@ -58,21 +79,21 @@ const About = () => {
       />
       {/* 右側圖片 */}
       <div className=" relative lg:h-full flex flex-1 items-center  mx-0   md:ml-5 md:mb-20 lg:mb-0">
-        <div className="absolute right-5 top-0  md:top-[-20%] lg:top-0  w-6/12  md:w-5/12 lg:w-5/12   z-10 ml-10">
+        <div ref={img1Ref} className="absolute right-5 top-0  md:top-[-20%] lg:top-0  w-6/12  md:w-5/12 lg:w-5/12   z-10 ml-10">
           <img
             src="/assets/images/About3.jpg"
             alt="placeholder"
             className=" object-cover shadow-lg"
           />
         </div>
-        <div className="my-auto  w-8/12 ">
+        <div ref={img2Ref} className="my-auto  w-8/12 ">
           <img
             src="/assets/images/About1.jpg"
             alt="placeholder"
             className=" object-cover mt-10 shadow-lg"
           />
         </div>
-        <div className="absolute right-0  lg:right-10 bottom-[-1%] md:bottom-[-25%] lg:bottom-0 z-10   w-5/12 md:w-5/12 lg:w-4/12  ">
+        <div ref={img3Ref} className="absolute right-0  lg:right-10 bottom-[-1%] md:bottom-[-25%] lg:bottom-0 z-10   w-5/12 md:w-5/12 lg:w-4/12  ">
           <img
             src="/assets/images/About2.jpg"
             alt="placeholder"
