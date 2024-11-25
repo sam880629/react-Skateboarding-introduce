@@ -55,13 +55,13 @@ const FullPageScroll = () => {
   const containerRef = useRef(null);
   const isScrolling = useRef(false);
   const StartRef = useRef(null);
-  const [ismobile, setIsMobile] = useState(window.innerWidth > 768);
-
+  const [isPcDevice, setisPcDevice] = useState(window.innerWidth > 768);
+  
   useEffect(()=>{
   const mediaQuery = window.matchMedia("(min-width: 768px)");
 
     const handleResize = () => {
-      setIsMobile(mediaQuery.matches);
+      setisPcDevice(mediaQuery.matches);
     };
 
     // 初始判斷
@@ -250,7 +250,7 @@ const FullPageScroll = () => {
               }`}
             >
               <img
-                src={ismobile? section.image : section.imagePc}
+                src={isPcDevice? section.imagePc : section.image }
                 alt={section.title}
                 className={`w-full h-full   ${section.className}`}
             
