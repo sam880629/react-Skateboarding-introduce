@@ -55,6 +55,26 @@ const FullPageScroll = () => {
   const containerRef = useRef(null);
   const isScrolling = useRef(false);
   const StartRef = useRef(null);
+  const [ismobile, setIsMobile] = useState(window.innerWidth > 768);
+
+  useEffect(()=>{
+  const mediaQuery = window.matchMedia("(min-width: 768px)");
+
+    const handleResize = () => {
+      setIsMobile(mediaQuery.matches);
+    };
+
+    // 初始判斷
+    handleResize();
+
+    // 監聽變化
+    mediaQuery.addEventListener("change", handleResize);
+
+    // 清除監聽
+    return () => {
+      mediaQuery.removeEventListener("change", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const sectionsArray = gsap.utils.toArray(".section");
@@ -230,9 +250,8 @@ const FullPageScroll = () => {
               }`}
             >
               <img
-                src={section.image}
+                src={ismobile? section.image : section.imagePc}
                 alt={section.title}
-                srcSet={`${section.image} 768w,${section.imagePc} 1024w`}
                 className={`w-full h-full   ${section.className}`}
             
               />

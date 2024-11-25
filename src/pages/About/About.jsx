@@ -40,6 +40,7 @@ const About = () => {
       y: "0",
       ease: "power2.out",
     });
+
     // 圖片動畫，從左往右依序進入
     tl.from([img1, img2, img3], {
       x: "-20%", // 從左側開始
@@ -48,7 +49,6 @@ const About = () => {
       ease: "power1.out",
       stagger: 0.8, 
     }, "-=1.5"); 
-
     tl.to([img1, img2, img3], {
       x: "0", 
       opacity: 1,
@@ -56,6 +56,8 @@ const About = () => {
       ease: "power1.out",
       stagger: 0.8, 
     }, "-=1.5"); 
+
+    
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
