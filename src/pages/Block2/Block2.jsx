@@ -14,6 +14,7 @@ const Block2 = () => {
   const [pathLength, setPathLength] = useState(0);
   const img2Ref = useRef(null);
   const img3Ref = useRef(null);
+
   useEffect(() => {
     // 獲取SVG路徑長度
     if (pathRef.current) {
@@ -71,9 +72,9 @@ const Block2 = () => {
           once: true, // 動畫僅執行一次
         },
         onComplete: () => {
-          // 確保在動畫結束後，移除遮罩
-          img2Ref.current.removeAttribute("mask"); // 移除 mask 屬性
-          img3Ref.current.removeAttribute("mask"); // 移除 mask 屬性
+          //移除遮罩
+          img2Ref.current.removeAttribute("mask");
+          img3Ref.current.removeAttribute("mask"); 
         },
       }
     );
