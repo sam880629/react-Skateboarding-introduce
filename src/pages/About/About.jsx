@@ -21,25 +21,25 @@ const About = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: wrapper,
-        start: "top 80%",
+        start: "top center",
         end: "bottom 100%",
         scrub: 0.5,
         // markers: true,
       },
     });
-    
+ 
     tl.from(cont1, {
       opacity: 0,
       duration: 1,
-      y: "50",
+      y: "100",
       ease: "power1.out",
-    });
+    },'>');
     tl.to(cont1, {
       opacity: 1,
       duration: 1,
       y: "0",
       ease: "power2.out",
-    });
+    },'>');
 
     // 圖片動畫，從左往右依序進入
     tl.from([img1, img2, img3], {
@@ -47,15 +47,15 @@ const About = () => {
       opacity: 0,
       duration: 2,
       ease: "power1.out",
-      stagger: 0.8, 
-    }, "-=1.5"); 
+      stagger: 0.3, 
+    }, ">"); 
     tl.to([img1, img2, img3], {
       x: "0", 
       opacity: 1,
       duration: 2.5,
       ease: "power1.out",
-      stagger: 0.8, 
-    }, "-=1.5"); 
+      stagger: 0.3, 
+    }, "+=3"); 
 
 
     return () => {

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 const Block2 = () => {
-  
+
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const borderRef = useRef(null);
@@ -36,7 +36,7 @@ const Block2 = () => {
         duration: 1,
         ease: "power4.out",
       },
-      "-=0.5"
+      "+=0.5"
     );
 
     // 線條動畫
