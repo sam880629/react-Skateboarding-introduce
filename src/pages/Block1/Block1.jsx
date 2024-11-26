@@ -5,37 +5,34 @@ import { useEffect, useRef } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 const Block1 = () => {
- 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
-  
+
   // 處理文字動畫
   useEffect(() => {
     const tl = gsap.timeline();
-  
-    tl.from(contentRef.current, {
-      clipPath: "inset(100% 0 0 0)",
-      duration: 1,
-      ease: "power4.out",
-    },'>')
+
+    tl.from(
+      contentRef.current,
+      {
+        clipPath: "inset(100% 0 0 0)",
+        ease: "none",
+      },
+      ">"
+    )
       .from(
         titleRef.current,
         {
           clipPath: "inset(100% 0 0 0)",
-          duration: 1,
-          ease: "power4.out",
+          ease: "none",
         },
-        "0.5" 
+        ">"
       )
-      .to(
-        [titleRef.current, contentRef.current],
-        {
-          clipPath: "inset(0 0 0 0)",
-          duration: 1,
-          ease: "power4.out",
-        }
-      );
-  }, []); 
+      .to([titleRef.current, contentRef.current], {
+        clipPath: "inset(0 0 0 0)",
+        ease: "none",
+      });
+  }, []);
 
   return (
     <div className="w-screen h-screen   relative">
