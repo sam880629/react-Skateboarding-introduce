@@ -67,7 +67,7 @@ const Block2 = () => {
         duration: 2,
         ease: "none",
         scrollTrigger: {
-          trigger: imgRef.current,
+          trigger: contentRef.current,
           start: "top center", // 當滾動到目標時開始動畫
           once: true, // 動畫僅執行一次
         },
