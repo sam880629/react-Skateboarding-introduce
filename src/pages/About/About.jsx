@@ -52,10 +52,10 @@ const About = () => {
     tl.to([img1, img2, img3], {
       x: "0", 
       opacity: 1,
-      duration: 2.5,
+      duration: 2,
       ease: "power1.out",
       stagger: 0.3, 
-    }, "+=3"); 
+    }, "+=5"); 
 
 
     return () => {
