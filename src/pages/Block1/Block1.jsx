@@ -1,74 +1,53 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Block1 = () => {
-  const videoRef = useRef(null);
+ 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  // 處理影片載入
-  useEffect(() => {
-    const video = videoRef.current;
-
-    // 設定初始狀態 - 隱藏文字
-    gsap.set([contentRef.current, titleRef.current], {
-      clipPath: "inset(100% 0 0 0)",
-    });
-
-    const handleVideoLoad = () => {
-      setIsVideoLoaded(true);
-    };
-
-    // 檢查影片是否已經可以播放
-    if (video.readyState >= 3) {
-      handleVideoLoad();
-    } else {
-      video.addEventListener("canplay", handleVideoLoad);
-    }
-
-    return () => {
-      video.removeEventListener("canplay", handleVideoLoad);
-    };
-  }, []);
-
+  
   // 處理文字動畫
   useEffect(() => {
-    if (!isVideoLoaded) return;
-
     const tl = gsap.timeline();
-
-    tl.to(titleRef.current, {
-      clipPath: "inset(0 0 0 0)",
+  
+    tl.from(contentRef.current, {
+      clipPath: "inset(100% 0 0 0)",
       duration: 1,
       ease: "power4.out",
-    }).to(
-      contentRef.current,
-      {
-        clipPath: "inset(0 0 0 0)",
-        duration: 1,
-        ease: "power4.out",
-      },
-      "-=0.5"
-    );
-  }, [isVideoLoaded]); // 當 isVideoLoaded 變為 true 時觸發動畫
+    },'>')
+      .from(
+        titleRef.current,
+        {
+          clipPath: "inset(100% 0 0 0)",
+          duration: 1,
+          ease: "power4.out",
+        },
+        "0.5" 
+      )
+      .to(
+        [titleRef.current, contentRef.current],
+        {
+          clipPath: "inset(0 0 0 0)",
+          duration: 1,
+          ease: "power4.out",
+        }
+      );
+  }, []); 
 
   return (
-    <div className="w-screen h-screen page-hero  relative">
+    <div className="w-screen h-screen   relative">
       {/* 影片設定 */}
       <video
-        ref={videoRef}
         className="w-full h-full object-cover"
-        width="1920"
-        height="1080"
         muted
         autoPlay
         loop
         playsInline
         disableRemotePlayback
-        src="/assets/videos/blockVideo1.mp4"
+        src="/assets/videos/blockVideo2.mp4"
         data-src="/assets/videos/blockVideo2.mp4"
         data-src-mobile="/assets/videos/blockVideo2.mp4"
       />
