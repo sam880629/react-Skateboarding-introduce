@@ -21,9 +21,9 @@ const About = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: wrapper,
-        start: "top center",
+        start: "top 80%",
         end: "bottom 100%",
-        scrub: 1,
+        scrub: 0.5,
         // markers: true,
       },
     });
@@ -57,7 +57,7 @@ const About = () => {
       stagger: 0.8, 
     }, "-=1.5"); 
 
-    
+
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
@@ -70,11 +70,11 @@ const About = () => {
   return (
     <section
       ref={wrapperRef}
-      className="relative w-full h-screen md:h-[150vh] lg:h-screen overflow-hidden flex flex-col lg:flex-row   justify-center items-center  px-8  py-20 md:pt-32 lg:py-24 md:px-24"
+      className="relative w-full h-screen md:h-[150vh] lg:h-screen overflow-hidden flex flex-col lg:flex-row   justify-center items-center  px-8  py-16 md:pt-32 lg:py-24 md:px-24"
     >
       {/* 左側文字 */}
       <ToutContent
-        className="w-full h-auto flex-1 flex flex-col justify-center lg:w-6/12"
+        className="w-full h-auto flex-1 flex flex-col md:justify-center lg:w-6/12"
         header={header}
         content={content}
         ref={cont1Ref}

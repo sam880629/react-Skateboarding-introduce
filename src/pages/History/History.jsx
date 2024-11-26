@@ -15,8 +15,8 @@ const sections = [
     description:
       "Skateboarding originated in California in the 1940s and 1950s when surfers wanted to recreate the feeling of surfing on land. They attached wheels to wooden planks, creating the earliest form of skateboards, often referred to as 'sidewalk surfing.' Initially handmade and simple, skateboards soon grew in popularity among Californian youth, and by the 1960s, skateboarding became commercialized and spread as a popular pastime.",
     image: "/assets/images/skateboard.jpg",
-    imagePc:"/assets/images/skateboard_pc.jpeg",
-    className: 'object-center object-cover' ,
+    imagePc: "/assets/images/skateboard_pc.jpeg",
+    className: "object-center object-cover",
   },
   {
     id: 2,
@@ -25,8 +25,8 @@ const sections = [
     description:
       "Alan Gelfand invented the 'ollie,' the first skateboarding trick where the skateboarder can jump without using their hands. The ollie became the foundation for countless aerial tricks and marked a new era in skateboarding. This revolutionary trick made it possible to perform intricate maneuvers on flat ground and led to the rise of modern skateboarding.",
     image: "/assets/images/Ollie.jpg",
-    imagePc:"/assets/images/Ollie_pc.jpeg",
-    className: 'object-cover  object-center',
+    imagePc: "/assets/images/Ollie_pc.jpeg",
+    className: "object-cover  object-center",
   },
   {
     id: 3,
@@ -35,8 +35,8 @@ const sections = [
     description:
       "The X Games, organized by ESPN, were first held in 1995 and included skateboarding as one of its core events. This brought skateboarding to a global audience, boosting its popularity significantly. The competition showcased the best skateboarders and their innovative tricks, establishing skateboarding as a professional sport and exposing it to millions of viewers worldwide.",
     image: "/assets/images/Xgames.jpg",
-    imagePc:"/assets/images/Xgames_pc.jpg",
-    className: ' object-cover',
+    imagePc: "/assets/images/Xgames_pc.jpg",
+    className: " object-cover",
   },
   {
     id: 4,
@@ -45,8 +45,8 @@ const sections = [
     description:
       "Skateboarding debuted as an official Olympic sport at the 2021 Tokyo Olympics, marking its recognition by the global sports community. The inclusion in the Olympics elevated skateboarding's legitimacy and professional standing, bringing greater attention to the sport and inspiring a new generation of skaters worldwide.",
     image: "/assets/images/Olympics2.jpg",
-    imagePc:"/assets/images/Olympics2_pc.jpg",
-    className: 'object-top object-cover',
+    imagePc: "/assets/images/Olympics2_pc.jpg",
+    className: "object-top object-cover",
   },
 ];
 
@@ -56,10 +56,10 @@ const FullPageScroll = () => {
   const isScrolling = useRef(false);
   const StartRef = useRef(null);
   const [isPcDevice, setisPcDevice] = useState(window.innerWidth > 768);
-  
-  useEffect(()=>{
-  const mediaQuery = window.matchMedia("(min-width: 768px)");
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    // 判斷裝置
     const handleResize = () => {
       setisPcDevice(mediaQuery.matches);
     };
@@ -157,8 +157,6 @@ const FullPageScroll = () => {
       clearTimeout(scrollTimeout);
       let direction;
       scrollTimeout = setTimeout(() => {
-      
-
         // wheel 事件
         if (e.type === "wheel") {
           direction = e.deltaY > 0 ? 1 : -1;
@@ -198,7 +196,7 @@ const FullPageScroll = () => {
       // 電腦wheel事件
       el.addEventListener("wheel", handleScroll);
       // 手機觸控事件
-      el.addEventListener('touchstart', handleTouchStart);
+      el.addEventListener("touchstart", handleTouchStart);
       el.addEventListener("touchmove", handleScroll);
 
       window.addEventListener("resize", handleResize);
@@ -218,9 +216,8 @@ const FullPageScroll = () => {
 
     return () => {
       if (el) {
-        
         el.removeEventListener("wheel", handleScroll);
-        el.removeEventListener('touchstart', handleTouchStart);
+        el.removeEventListener("touchstart", handleTouchStart);
         el.removeEventListener("touchmove", handleScroll);
       }
       window.removeEventListener("resize", handleResize);
@@ -235,7 +232,20 @@ const FullPageScroll = () => {
       ref={StartRef}
       className="h-screen block  w-full  relative overflow-hidden"
     >
-
+      {/* 導航點 */}
+      <div className=" absolute right-2  md:right-8 top-1/2 -translate-y-1/2 z-50">
+        {sections.map((section, index) => (
+          <div
+            key={index}
+            className="w-1 h-1 rounded-full bg-white my-3 cursor-pointer transition-transform duration-300"
+            style={{
+              transform: currentSection === index ? "scale(1.5)" : "scale(1)",
+              opacity: currentSection === index ? 1 : 0.5,
+              height: currentSection === index ? "12px" : "4px"
+            }}
+          />
+        ))}
+      </div>
       {/* 內容區域 */}
       <div ref={containerRef} className="relative  h-full w-full touch-none">
         {sections.map((section, index) => (
@@ -250,17 +260,16 @@ const FullPageScroll = () => {
               }`}
             >
               <img
-                src={isPcDevice? section.imagePc : section.image }
+                src={isPcDevice ? section.imagePc : section.image}
                 alt={section.title}
                 className={`w-full h-full   ${section.className}`}
-            
               />
               <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70" />
             </div>
 
             {/* 文字內容 */}
             <div className="relative z-10 max-w-4xl mx-auto p-6 md:p-10 ">
-                {/* 年份 */}
+              {/* 年份 */}
               <div className="text-xl md:text-2xl text-gray-400 mb-2 font-black">
                 {section.time}
               </div>

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 const Block2 = () => {
+  
   const titleRef = useRef(null);
   const contentRef = useRef(null);
   const borderRef = useRef(null);
