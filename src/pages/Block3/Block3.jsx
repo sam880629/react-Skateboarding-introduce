@@ -14,16 +14,16 @@ const Block3 = () => {
   const imageTexts = ["Park ", "Street ", "Racing"];
 
   const imagePaths = [
-    "/assets/images/1.jpg",
-    "/assets/images/2.jpg",
-    "/assets/images/3.jpg",
+    "/assets/images/Park.jpg",
+    "/assets/images/Street.jpg",
+    "/assets/images/Racing.jpg",
   ];
 
   useEffect(() => {
     // 初始化文字的位置與透明度
     textRefs.current.forEach((text, index) => {
       if (index === 0) {
-        gsap.set(text, { y: "0%", opacity: 1 });
+        gsap.set(text, { y: "0%", opacity: 0 });
       } else {
         gsap.set(text, { y: "100%", opacity: 0 });
       }
@@ -45,7 +45,7 @@ const Block3 = () => {
             scrollTrigger: {
               trigger: image,
               start: "top center+=100",
-              end: "+=150",
+              end: "+=100",
               toggleActions: "play none none reverse",
               scrub: true,
               immediateRender: false,
@@ -74,6 +74,11 @@ const Block3 = () => {
               toggleActions: "play none none reverse",
             //   markers: true,
             },
+            onComplete:()=>{
+                if(index==0){
+                    textRefs.current[index].opacity = 0;
+                }
+            }
           }
         );
       }
@@ -83,15 +88,22 @@ const Block3 = () => {
   return (
     <div className="w-screen relative mt-10 mb-24">
       <div className="w-full flex flex-col items-center justify-center">
+      <div
+          className=" px-8 text-[#00cf75] font-extrabold text-3xl lg:text-6xl"
+          style={{ fontFamily: "'Rubik Mono One', sans-serif" }}
+        >
+          Categories of Competitions
+        </div>
         <div className="relative mb-14">
+       
           <div
-            className="sticky left-1/4 -translate-x-1/4 top-1/2 -translate-y-/4    text-white  rounded-lg overflow-hidden"
+            className=" sticky left-0 -translate-x-[10%] md:-translate-x-[25%] top-1/2 -translate-y-/4    text-white  rounded-lg "
           >
             {imageTexts.map((text, index) => (
               <div
                 key={index}
                 ref={(el) => (textRefs.current[index] = el)}
-                className={"text-4xl"}
+                className={"text-4xl md:text-6xl  lg:text-8xl"}
               >
                 {text}
               </div>
@@ -104,8 +116,8 @@ const Block3 = () => {
                 ref={(el) => (imageRefs.current[index] = el)}
                 src={src}
                 className={`
-                  object-cover shadow-lg min-w-[21rem] h-[339px] 
-                  ${index === 0 ? "rounded-t-xl" : ""} 
+                  object-cover object-top shadow-lg w-[296px] md:w-[21rem] lg:w-[800px] h-[339px] lg:h-[450px] 
+                  ${index === 0 ? "rounded-t-xl " : ""} 
                   ${index === 2 ? "rounded-b-xl" : ""}
                 `}
               />
