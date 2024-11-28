@@ -7,10 +7,9 @@ gsap.registerPlugin(ScrollTrigger);
 const Main = () => {
   const titleRef = useRef(null);
   const contentRef = useRef(null);
-  
+
   // 處理文字動畫
   useEffect(() => {
-
     const tl = gsap.timeline();
 
     tl.from(
@@ -19,9 +18,10 @@ const Main = () => {
         clipPath: "inset(100% 0 0 0)",
         ease: "none",
       },
-      "+=0.3"
+      "+=0.5"
     )
-      .from(
+
+    tl.from(
         titleRef.current,
         {
           clipPath: "inset(100% 0 0 0)",
@@ -29,7 +29,8 @@ const Main = () => {
         },
         "+=0.3"
       )
-      .to([titleRef.current, contentRef.current], {
+
+    tl.to([titleRef.current, contentRef.current], {
         display: "flex",
         clipPath: "inset(0 0 0 0)",
         ease: "none",
@@ -37,7 +38,6 @@ const Main = () => {
   }, []);
 
   return (
-    
     <div className="w-screen h-screen  relative">
       {/* 影片設定 */}
       <video
@@ -46,7 +46,7 @@ const Main = () => {
         autoPlay
         loop
         playsInline
-        preload='metadata'
+        preload="metadata"
         disableRemotePlayback
         src="/assets/videos/MainVideo.mp4"
         data-src="/assets/videos/MainVideo.mp4"
