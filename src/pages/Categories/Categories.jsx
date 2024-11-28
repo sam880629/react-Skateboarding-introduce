@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Block3 = () => {
+const Categories = () => {
   // References for images and text containers
   const imageRefs = useRef([]);
   const textRefs = useRef([]);
@@ -129,4 +129,4 @@ const Block3 = () => {
   );
 };
 
-export default Block3;
+export default Categories;

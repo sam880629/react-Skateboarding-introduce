@@ -2,9 +2,9 @@ import "./App.css";
 import { ParallaxProvider } from "react-scroll-parallax";
 import NavBar from "./Header/NavBar";
 import ImgSroll from "./pages/ImgSroll/ImgSroll";
-import Block1 from "./pages/Block1/Block1";
-import Block2 from "./pages/Block2/Block2";
-import Block3 from "./pages/Block3/Block3";
+import Main from "./pages/Main/Main";
+import Culture from "./pages/Culture/Culture";
+import Categories from "./pages/Categories/Categories";
 import About from "./pages/About/About";
 import History from "./pages/History/History";
 
@@ -13,13 +13,11 @@ const App = () => {
     <ParallaxProvider>
       <div className="App">
         <NavBar />
-        <Block1 />
+        <Main />
         <About />
-        <Block3 />
+        <Categories />
         <ImgSroll />
-     
-    
-        <Block2 />
+        <Culture />
         <History />
       </div>
     </ParallaxProvider>

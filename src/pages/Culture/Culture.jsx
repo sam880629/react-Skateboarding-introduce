@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Block2 = () => {
+const Culture = () => {
 
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -176,4 +176,4 @@ const Block2 = () => {
   );
 };
 
-export default Block2;
+export default Culture;

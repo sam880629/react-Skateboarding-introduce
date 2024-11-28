@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Block1 = () => {
+const Main = () => {
   const titleRef = useRef(null);
   const contentRef = useRef(null);
 
@@ -77,4 +77,4 @@ const Block1 = () => {
   );
 };
 
-export default Block1;
+export default Main;
