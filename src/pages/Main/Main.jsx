@@ -19,7 +19,7 @@ const Main = () => {
         clipPath: "inset(100% 0 0 0)",
         ease: "none",
       },
-      ">"
+      "+=0.3"
     )
       .from(
         titleRef.current,
@@ -27,7 +27,7 @@ const Main = () => {
           clipPath: "inset(100% 0 0 0)",
           ease: "none",
         },
-        ">"
+        "+=0.3"
       )
       .to([titleRef.current, contentRef.current], {
         display: "flex",
