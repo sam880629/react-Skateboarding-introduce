@@ -46,8 +46,8 @@ const App = () => {
         const progress = ((i + 1) / componentsToLoad.length) * 100;
         setLoadingProgress(progress);
       }
-      // 加載動畫至少1.2秒
-      const finalDisplayTime = Math.max(totalLoadTime, 1200);
+      // 加載動畫至少1.5秒
+      const finalDisplayTime = Math.max(totalLoadTime, 1500);
 
       setTimeout(() => {
         setIsLoading(false);

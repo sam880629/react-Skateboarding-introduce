@@ -10,6 +10,7 @@ const Main = () => {
 
   // 處理文字動畫
   useEffect(() => {
+
     const tl = gsap.timeline();
 
     tl.from(
@@ -29,12 +30,14 @@ const Main = () => {
         ">"
       )
       .to([titleRef.current, contentRef.current], {
+        display: "flex",
         clipPath: "inset(0 0 0 0)",
         ease: "none",
       });
   }, []);
 
   return (
+    
     <div className="w-screen h-screen   relative">
       {/* 影片設定 */}
       <video
@@ -43,7 +46,7 @@ const Main = () => {
         autoPlay
         loop
         playsInline
-        preload 
+        preload='auto'
         disableRemotePlayback
         src="/assets/videos/blockVideo3.mp4"
         data-src="/assets/videos/blockVideo3.mp4"
@@ -56,7 +59,7 @@ const Main = () => {
           className="text-6xl md:text-6xl lg:text-8xl xl:text-9xl 
                    mb-2 md:mb-6 text-center tracking-wider break-words
                    md:whitespace-nowrap
-                   flex flex-col md:flex-row items-center"
+                   hidden flex-col md:flex-row items-center "
           style={{ fontFamily: "'Rubik Mono One', sans-serif" }}
         >
           <span className="block md:inline">SKATE</span>
@@ -66,7 +69,7 @@ const Main = () => {
         <div className=" text-center space-y-4 mt-4 md:mt-0">
           <p
             ref={contentRef}
-            className="text-sm md:text-xl lg:text-4xl tracking-wide"
+            className="text-sm md:text-xl lg:text-4xl tracking-wide hidden"
             style={{ fontFamily: "'Teko', sans-serif" }}
           >
             "Life is like skateboarding... It's all about getting up when you
