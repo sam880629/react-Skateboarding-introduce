@@ -1,9 +1,10 @@
 import { useState, useEffect,  lazy } from "react";
 import "./App.css";
 import LoadingPage from "./components/Loading";
+
 // 導入元件
-const NavBar = lazy(() => import("./Header/NavBar"));
 const Main = lazy(() => import("./pages/Main/Main"));
+const NavBar = lazy(() => import("./Header/NavBar"));
 const ImgSroll = lazy(() => import("./pages/ImgSroll/ImgSroll"));
 const Culture = lazy(() => import("./pages/Culture/Culture"));
 const Categories = lazy(() => import("./pages/Categories/Categories"));
@@ -52,6 +53,7 @@ const App = () => {
       setTimeout(() => {
         setIsLoading(false);
       }, finalDisplayTime - totalLoadTime);
+      
     } catch (error) {
       // 執行載入錯誤
       console.log("error", error);

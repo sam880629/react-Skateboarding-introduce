@@ -119,7 +119,6 @@ const Culture = () => {
         ref={imgRef}
         className=" w-full  h-full  flex flex-col md:flex-row gap-4 md:gpa-0 mx-auto  mb-10 md:mb-24 md:mt-10"
       >
-
         <div className="relative w-full h-full">
           {/* SVG 遮罩 */}
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 900 600">

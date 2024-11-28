@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Main = () => {
   const titleRef = useRef(null);
   const contentRef = useRef(null);
-
+  
   // 處理文字動畫
   useEffect(() => {
 
@@ -38,7 +38,7 @@ const Main = () => {
 
   return (
     
-    <div className="w-screen h-screen   relative">
+    <div className="w-screen h-screen  relative">
       {/* 影片設定 */}
       <video
         className="w-full h-full object-cover"
@@ -46,11 +46,11 @@ const Main = () => {
         autoPlay
         loop
         playsInline
-        preload='auto'
+        preload='metadata'
         disableRemotePlayback
-        src="/assets/videos/blockVideo3.mp4"
-        data-src="/assets/videos/blockVideo3.mp4"
-        data-src-mobile="/assets/videos/blockVideo3.mp4"
+        src="/assets/videos/MainVideo.mp4"
+        data-src="/assets/videos/MainVideo.mp4"
+        data-src-mobile="/assets/videos/MainVideo.mp4"
       />
       {/* 內容 */}
       <div className="absolute z-10 inset-0 flex flex-col justify-center items-center text-[#00c475]">

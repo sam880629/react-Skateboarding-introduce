@@ -86,10 +86,10 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="w-screen relative mt-10 mb-24">
+    <div className="w-screen relative mt-24 mb-24">
       <div className="w-full flex flex-col items-center justify-center">
       <div
-          className=" px-8 text-[#00cf75] font-extrabold text-3xl lg:text-6xl"
+          className=" px-8 text-[#00cf75] font-extrabold text-3xl lg:text-6xl "
           style={{ fontFamily: "'Rubik Mono One', sans-serif" }}
         >
           Categories of Competitions
