@@ -36,7 +36,7 @@ const App = () => {
 
   useEffect(() => {
     preloadPages();
-  }, []);
+  }, [isLoading]);
 
   //主要內容
   return (

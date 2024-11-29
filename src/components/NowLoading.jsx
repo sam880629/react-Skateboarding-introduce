@@ -1,5 +1,3 @@
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef,  } from "react";
 
 // 載入畫面元件
