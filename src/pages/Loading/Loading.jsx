@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 // 載入畫面元件
 const Loading = ({ loadingProgress, isLoading }) => {
 
-  return isLoading ? <NowLoading loadingProgress={loadingProgress} /> : <TransitionLeft /> ;
+  return isLoading ? <NowLoading loadingProgress={loadingProgress} /> : "" ;
 
 };
 
