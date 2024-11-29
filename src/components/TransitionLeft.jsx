@@ -18,6 +18,9 @@ const TransitionLeft = () => {
         duration: 0.8,
         ease: "power2.out",
         stagger: 0.1, 
+        onComplete: () => {
+            document.body.style.overflowY = "auto";
+        }
       },
     );
   }, []);

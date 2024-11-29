@@ -20,7 +20,7 @@ const App = () => {
   };
   //loading頁面
   const preloadPages = async () => {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflowY = "hidden";
     for (let i = 0; i < 6; i++) {
       // 讀取時間
       await simulateLoad(400);
@@ -31,7 +31,7 @@ const App = () => {
     await simulateLoad(800);
     setIsLoading(false);
    
-    document.body.style.overflow = "";
+   
   };
 
   useEffect(() => {
@@ -41,8 +41,8 @@ const App = () => {
   //主要內容
   return (
     <div className="App">
-      {/* <Loading  loadingProgress={loadingProgress} isLoading={isLoading}/>
-      {!isLoading && */}
+      <Loading  loadingProgress={loadingProgress} isLoading={isLoading}/>
+      {!isLoading &&
       <Fragment>
         <NavBar />
         <Main />
@@ -52,7 +52,7 @@ const App = () => {
         <Culture />
         <History />
       </Fragment>
-      {/* } */}
+      } 
     </div>
   );
 };
