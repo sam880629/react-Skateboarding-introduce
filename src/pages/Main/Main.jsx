@@ -48,9 +48,9 @@ const Main = () => {
         playsInline
         preload="metadata"
         disableRemotePlayback
-        src="/assets/videos/MainVideo.webm"
-        data-src="/assets/videos/MainVideo.webm"
-        data-src-mobile="/assets/videos/MainVideo.webm"
+        src="/assets/videos/MainVideo.mp4"
+        data-src="/assets/videos/MainVideo.mp4"
+        data-src-mobile="/assets/videos/MainVideo.mp4"
       />
       {/* 內容 */}
       <div className="absolute z-10 inset-0 flex flex-col justify-center items-center text-[#00c475]">
