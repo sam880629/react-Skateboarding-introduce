@@ -1,64 +1,44 @@
-import { useState, useEffect,  lazy } from "react";
+import { useState, useEffect,  lazy  } from "react";
 import "./App.css";
 import LoadingPage from "./components/Loading";
-
-// 導入元件
-const Main = lazy(() => import("./pages/Main/Main"));
-const NavBar = lazy(() => import("./Header/NavBar"));
+import Main from "./pages/Main/Main";
+import NavBar from "./Header/NavBar";
+import About from "./pages/About/About";
+// lazy導入元件
 const ImgSroll = lazy(() => import("./pages/ImgSroll/ImgSroll"));
 const Culture = lazy(() => import("./pages/Culture/Culture"));
 const Categories = lazy(() => import("./pages/Categories/Categories"));
-const About = lazy(() => import("./pages/About/About"));
 const History = lazy(() => import("./pages/History/History"));
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
 
-  // 元件陣列
-  const componentsToLoad = [
-    { name: "Main", loader: () => import("./pages/Main/Main") },
-    { name: "About", loader: () => import("./pages/About/About") },
-    {
-      name: "Categories",
-      loader: () => import("./pages/Categories/Categories"),
-    },
-    { name: "ImgSroll", loader: () => import("./pages/ImgSroll/ImgSroll") },
-    { name: "Culture", loader: () => import("./pages/Culture/Culture") },
-    { name: "History", loader: () => import("./pages/History/History") },
-  ];
+  // 模擬讀取時間
+  const simulateLoad = (delay) => {
+    return new Promise((resolve) => setTimeout(resolve, delay));
+  };
 
   //loading頁面
   const preloadPages = async () => {
     try {
-      let totalLoadTime = 0;
 
-      for (let i = 0; i < componentsToLoad.length; i++) {
-        const startTime = performance.now();
-        // 動態載入組件
-        await componentsToLoad[i].loader();
-        const endTime = performance.now();
-
-        // 計算載入時間
-        const loadTime = endTime - startTime;
-        totalLoadTime += loadTime;
-
+      for (let i = 0; i < 6; i++) {
+        // 讀取時間
+        await simulateLoad(250);
         // 更新進度
-        const progress = ((i + 1) / componentsToLoad.length) * 100;
+        const progress = ((i + 1) / 6) * 100;
         setLoadingProgress(progress);
       }
-      // 加載動畫至少1.5秒
-      const finalDisplayTime = Math.max(totalLoadTime, 1500);
+  
 
-      setTimeout(() => {
-        setIsLoading(false);
-      }, finalDisplayTime - totalLoadTime);
-      
     } catch (error) {
       // 執行載入錯誤
       console.log("error", error);
       setIsLoading(false);
     }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -72,13 +52,13 @@ const App = () => {
   //主要內容
   return (
     <div className="App">
-      <NavBar />
-      <Main />
-      <About />
-      <Categories />
-      <ImgSroll />
-      <Culture />
-      <History />
+        <NavBar />
+        <Main />
+        <About />
+        <Categories />
+        <ImgSroll />
+        <Culture />
+        <History />
     </div>
   );
 };

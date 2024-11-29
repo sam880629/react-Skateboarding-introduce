@@ -11,7 +11,8 @@ const Main = () => {
   // 處理文字動畫
   useEffect(() => {
     const tl = gsap.timeline();
-
+    console.log('Main');
+    
     tl.from(
       contentRef.current,
       {
