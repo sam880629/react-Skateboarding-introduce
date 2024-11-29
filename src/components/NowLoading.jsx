@@ -2,7 +2,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef,  } from "react";
 
-gsap.registerPlugin(ScrollTrigger);
 // 載入畫面元件
 const NowLoading = ({ loadingProgress }) => {
 
