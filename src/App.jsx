@@ -41,8 +41,8 @@ const App = () => {
   //主要內容
   return (
     <div className="App">
-      <Loading  loadingProgress={loadingProgress} isLoading={isLoading}/>
-      {!isLoading &&
+      {/* <Loading  loadingProgress={loadingProgress} isLoading={isLoading}/>
+      {!isLoading && */}
       <Fragment>
         <NavBar />
         <Main />
@@ -52,7 +52,7 @@ const App = () => {
         <Culture />
         <History />
       </Fragment>
-      }
+      {/* } */}
     </div>
   );
 };
