@@ -1,6 +1,5 @@
 import { useState, useEffect, lazy, Fragment } from "react";
 import "./App.css";
-
 import LoadingPage from "./components/Loading";
 import Main from "./pages/Main/Main";
 import NavBar from "./Header/NavBar";
@@ -21,7 +20,7 @@ const App = () => {
   };
   //loading頁面
   const preloadPages = async () => {
-   
+    document.body.style.overflow = "hidden";
     for (let i = 0; i < 6; i++) {
       // 讀取時間
       await simulateLoad(400);
@@ -29,9 +28,10 @@ const App = () => {
       const progress = ((i + 1) / 6) * 100;
       setLoadingProgress(progress);
     }
-
+    await simulateLoad(800);
     setIsLoading(false);
-    
+   
+    document.body.style.overflow = "";
   };
 
   useEffect(() => {

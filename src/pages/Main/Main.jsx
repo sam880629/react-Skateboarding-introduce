@@ -7,7 +7,6 @@ gsap.registerPlugin(ScrollTrigger);
 const Main = () => {
   const titleRef = useRef(null);
   const contentRef = useRef(null);
-  document.body.style.overflow = "";
   // 處理文字動畫
   useEffect(() => {
     const tl = gsap.timeline();
