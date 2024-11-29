@@ -1,6 +1,6 @@
 import { useState, useEffect, lazy, Fragment } from "react";
 import "./App.css";
-import LoadingPage from "./components/Loading";
+import Loading from "./pages/Loading/Loading";
 import Main from "./pages/Main/Main";
 import NavBar from "./Header/NavBar";
 import About from "./pages/About/About";
@@ -41,7 +41,7 @@ const App = () => {
   //主要內容
   return (
     <div className="App">
-      <LoadingPage  loadingProgress={loadingProgress} isLoading={isLoading}/>
+      <Loading  loadingProgress={loadingProgress} isLoading={isLoading}/>
       {!isLoading &&
       <Fragment>
         <NavBar />
