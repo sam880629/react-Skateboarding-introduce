@@ -7,11 +7,10 @@ gsap.registerPlugin(ScrollTrigger);
 const Main = () => {
   const titleRef = useRef(null);
   const contentRef = useRef(null);
-
+  document.body.style.overflow = "";
   // 處理文字動畫
   useEffect(() => {
     const tl = gsap.timeline();
-    console.log('Main');
     
     tl.from(
       contentRef.current,
@@ -39,7 +38,8 @@ const Main = () => {
   }, []);
 
   return (
-    <div className="w-screen h-screen  relative">
+    
+    <div className="w-screen h-screen  relative ">
       {/* 影片設定 */}
       <video
         className="w-full h-full object-cover"

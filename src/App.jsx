@@ -1,5 +1,6 @@
-import { useState, useEffect,  lazy  } from "react";
+import { useState, useEffect, lazy, Fragment } from "react";
 import "./App.css";
+
 import LoadingPage from "./components/Loading";
 import Main from "./pages/Main/Main";
 import NavBar from "./Header/NavBar";
@@ -18,40 +19,31 @@ const App = () => {
   const simulateLoad = (delay) => {
     return new Promise((resolve) => setTimeout(resolve, delay));
   };
-
   //loading頁面
   const preloadPages = async () => {
-    try {
-
-      for (let i = 0; i < 6; i++) {
-        // 讀取時間
-        await simulateLoad(250);
-        // 更新進度
-        const progress = ((i + 1) / 6) * 100;
-        setLoadingProgress(progress);
-      }
-  
-
-    } catch (error) {
-      // 執行載入錯誤
-      console.log("error", error);
-      setIsLoading(false);
+   
+    for (let i = 0; i < 6; i++) {
+      // 讀取時間
+      await simulateLoad(400);
+      // 更新進度
+      const progress = ((i + 1) / 6) * 100;
+      setLoadingProgress(progress);
     }
 
     setIsLoading(false);
+    
   };
 
   useEffect(() => {
     preloadPages();
   }, []);
 
-  //  先執行loading頁面
-  if (isLoading) {
-    return <LoadingPage progress={loadingProgress} />;
-  }
   //主要內容
   return (
     <div className="App">
+      <LoadingPage  loadingProgress={loadingProgress} isLoading={isLoading}/>
+      {!isLoading &&
+      <Fragment>
         <NavBar />
         <Main />
         <About />
@@ -59,6 +51,8 @@ const App = () => {
         <ImgSroll />
         <Culture />
         <History />
+      </Fragment>
+      }
     </div>
   );
 };
