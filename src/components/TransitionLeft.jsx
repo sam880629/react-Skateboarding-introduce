@@ -20,6 +20,7 @@ const TransitionLeft = () => {
         stagger: 0.1, 
         onComplete: () => {
             document.body.style.overflowY = "auto";
+            counterRef.current.style.display = "none";
         }
       },
     );
